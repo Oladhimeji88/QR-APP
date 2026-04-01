@@ -1,0 +1,369 @@
+"use client";
+
+import { useEffect, useEffectEvent } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Paintbrush, RefreshCcw, Sparkles, Wand2 } from "lucide-react";
+import { useForm, useWatch } from "react-hook-form";
+
+import { QrTypeSelector } from "@/components/qr/qr-type-selector";
+import { Button } from "@/components/ui/button";
+import { FieldHint } from "@/components/ui/field-hint";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { SectionCard } from "@/components/ui/section-card";
+import { Textarea } from "@/components/ui/textarea";
+import { ValidationMessage } from "@/components/ui/validation-message";
+import {
+  DEFAULT_FORM_VALUES,
+  QR_MARGIN_RANGE,
+  QR_SIZE_RANGE,
+  WIFI_ENCRYPTION_OPTIONS,
+} from "@/lib/constants";
+import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
+import type { QRFormValues } from "@/types/qr";
+
+interface QrFormProps {
+  onPreviewChange: (values: QRFormValues) => void;
+  onGenerate: (values: QRFormValues) => void;
+}
+
+export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
+  const {
+    control,
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+  } = useForm<QRFormValues>({
+    resolver: zodResolver(qrFormSchema),
+    defaultValues: DEFAULT_FORM_VALUES,
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
+
+  const values = useWatch({ control }) as QRFormValues;
+  const selectedType = useWatch({ control, name: "type" });
+  const wifiEncryption = useWatch({ control, name: "wifiEncryption" });
+
+  const emitPreviewChange = useEffectEvent((nextValues: QRFormValues) => {
+    onPreviewChange(nextValues);
+  });
+
+  useEffect(() => {
+    emitPreviewChange(values);
+  }, [emitPreviewChange, values]);
+
+  const handleFormSubmit = handleSubmit((submittedValues) => {
+    onGenerate(sanitizeFormValues(submittedValues));
+  });
+
+  return (
+    <form className="space-y-6" onSubmit={handleFormSubmit}>
+      <SectionCard
+        title="Choose your format"
+        description="Switch between plain text, links, messaging actions, and Wi-Fi access."
+      >
+        <QrTypeSelector
+          value={selectedType}
+          onChange={(type) => setValue("type", type, { shouldValidate: true, shouldDirty: true })}
+        />
+      </SectionCard>
+
+      <SectionCard
+        title="Content"
+        description="Fields adapt to the selected QR type so you only see what matters."
+      >
+        <div className="space-y-5">
+          {selectedType === "text" ? (
+            <div className="space-y-2">
+              <Label htmlFor="text">Plain text</Label>
+              <Textarea
+                id="text"
+                placeholder="Paste or type the exact text you want encoded."
+                aria-invalid={Boolean(errors.text)}
+                {...register("text")}
+              />
+              <FieldHint>Line breaks are preserved exactly as entered.</FieldHint>
+              <ValidationMessage message={errors.text?.message} />
+            </div>
+          ) : null}
+
+          {selectedType === "url" ? (
+            <div className="space-y-2">
+              <Label htmlFor="url">URL</Label>
+              <Input
+                id="url"
+                type="url"
+                inputMode="url"
+                placeholder="https://your-site.com/offer"
+                aria-invalid={Boolean(errors.url)}
+                {...register("url")}
+              />
+              <FieldHint>Include the full protocol so the QR opens reliably.</FieldHint>
+              <ValidationMessage message={errors.url?.message} />
+            </div>
+          ) : null}
+
+          {selectedType === "email" ? (
+            <div className="grid gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="email">Recipient email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  inputMode="email"
+                  placeholder="team@company.com"
+                  aria-invalid={Boolean(errors.email)}
+                  {...register("email")}
+                />
+                <ValidationMessage message={errors.email?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="emailSubject">Subject</Label>
+                <Input
+                  id="emailSubject"
+                  placeholder="Welcome to QR Forge"
+                  aria-invalid={Boolean(errors.emailSubject)}
+                  {...register("emailSubject")}
+                />
+                <ValidationMessage message={errors.emailSubject?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="emailBody">Body</Label>
+                <Textarea
+                  id="emailBody"
+                  placeholder="Thanks for reaching out. We’ll get back to you shortly."
+                  aria-invalid={Boolean(errors.emailBody)}
+                  {...register("emailBody")}
+                />
+                <ValidationMessage message={errors.emailBody?.message} />
+              </div>
+            </div>
+          ) : null}
+
+          {selectedType === "phone" ? (
+            <div className="space-y-2">
+              <Label htmlFor="phone">Phone number</Label>
+              <Input
+                id="phone"
+                type="tel"
+                inputMode="tel"
+                placeholder="+1 415 555 0123"
+                aria-invalid={Boolean(errors.phone)}
+                {...register("phone")}
+              />
+              <FieldHint>International format is best for broad device support.</FieldHint>
+              <ValidationMessage message={errors.phone?.message} />
+            </div>
+          ) : null}
+
+          {selectedType === "sms" ? (
+            <div className="grid gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="smsNumber">Phone number</Label>
+                <Input
+                  id="smsNumber"
+                  type="tel"
+                  inputMode="tel"
+                  placeholder="+1 415 555 0123"
+                  aria-invalid={Boolean(errors.smsNumber)}
+                  {...register("smsNumber")}
+                />
+                <ValidationMessage message={errors.smsNumber?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="smsMessage">Message</Label>
+                <Textarea
+                  id="smsMessage"
+                  placeholder="Hi there, I’d love to learn more about your product."
+                  aria-invalid={Boolean(errors.smsMessage)}
+                  {...register("smsMessage")}
+                />
+                <ValidationMessage message={errors.smsMessage?.message} />
+              </div>
+            </div>
+          ) : null}
+
+          {selectedType === "wifi" ? (
+            <div className="grid gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="wifiSsid">Network name (SSID)</Label>
+                <Input
+                  id="wifiSsid"
+                  placeholder="Office Guest Wi-Fi"
+                  aria-invalid={Boolean(errors.wifiSsid)}
+                  {...register("wifiSsid")}
+                />
+                <ValidationMessage message={errors.wifiSsid?.message} />
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+                <div className="space-y-2">
+                  <Label htmlFor="wifiPassword">Password</Label>
+                  <Input
+                    id="wifiPassword"
+                    type={wifiEncryption === "none" ? "text" : "password"}
+                    placeholder={wifiEncryption === "none" ? "Not required for open networks" : "Enter network password"}
+                    aria-invalid={Boolean(errors.wifiPassword)}
+                    disabled={wifiEncryption === "none"}
+                    {...register("wifiPassword")}
+                  />
+                  <ValidationMessage message={errors.wifiPassword?.message} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="wifiEncryption">Encryption</Label>
+                  <select
+                    id="wifiEncryption"
+                    className="flex h-12 w-full rounded-2xl border border-[color:var(--border)] bg-white/80 px-4 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--border-strong)] focus:ring-4 focus:ring-[color:var(--ring-soft)] dark:bg-white/5"
+                    {...register("wifiEncryption")}
+                  >
+                    {WIFI_ENCRYPTION_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <label className="flex items-center justify-between gap-4 rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
+                <div>
+                  <p className="text-sm font-medium text-[color:var(--foreground)]">
+                    Hidden network
+                  </p>
+                  <p className="text-sm text-[color:var(--muted-foreground)]">
+                    Enable this if the SSID does not broadcast publicly.
+                  </p>
+                </div>
+                <input
+                  type="checkbox"
+                  className="size-5 rounded border-[color:var(--border-strong)] text-[color:var(--accent-strong)] focus:ring-[color:var(--ring)]"
+                  {...register("wifiHidden")}
+                />
+              </label>
+            </div>
+          ) : null}
+        </div>
+      </SectionCard>
+
+      <SectionCard
+        title="Appearance & export quality"
+        description="Dial in colors, quiet zone margin, and output size for screens or print."
+        action={
+          <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-[color:var(--muted-foreground)]">
+            <Paintbrush className="size-3.5" />
+            Styling
+          </span>
+        }
+      >
+        <div className="grid gap-6">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="space-y-3">
+              <Label htmlFor="foreground">Foreground color</Label>
+              <div className="flex items-center gap-3 rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] p-3">
+                <input
+                  id="foreground"
+                  type="color"
+                  aria-label="QR foreground color"
+                  className="size-11 cursor-pointer rounded-2xl border-0 bg-transparent p-0"
+                  {...register("foreground")}
+                />
+                <Input className="h-11 flex-1" readOnly value={values.foreground} />
+              </div>
+              <ValidationMessage message={errors.foreground?.message} />
+            </div>
+
+            <div className="space-y-3">
+              <Label htmlFor="background">Background color</Label>
+              <div className="flex items-center gap-3 rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] p-3">
+                <input
+                  id="background"
+                  type="color"
+                  aria-label="QR background color"
+                  className="size-11 cursor-pointer rounded-2xl border-0 bg-transparent p-0"
+                  {...register("background")}
+                />
+                <Input className="h-11 flex-1" readOnly value={values.background} />
+              </div>
+              <ValidationMessage message={errors.background?.message} />
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-4">
+                <Label htmlFor="size">QR size</Label>
+                <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-sm text-[color:var(--muted-foreground)]">
+                  {values.size}px
+                </span>
+              </div>
+              <input
+                id="size"
+                type="range"
+                min={QR_SIZE_RANGE.min}
+                max={QR_SIZE_RANGE.max}
+                step={QR_SIZE_RANGE.step}
+                className="w-full accent-[color:var(--accent-strong)]"
+                {...register("size", { valueAsNumber: true })}
+              />
+              <FieldHint>Higher sizes are ideal for print and dense content.</FieldHint>
+              <ValidationMessage message={errors.size?.message} />
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-4">
+                <Label htmlFor="margin">Margin</Label>
+                <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-sm text-[color:var(--muted-foreground)]">
+                  {values.margin}
+                </span>
+              </div>
+              <input
+                id="margin"
+                type="range"
+                min={QR_MARGIN_RANGE.min}
+                max={QR_MARGIN_RANGE.max}
+                step={QR_MARGIN_RANGE.step}
+                className="w-full accent-[color:var(--accent-strong)]"
+                {...register("margin", { valueAsNumber: true })}
+              />
+              <FieldHint>
+                Add breathing room around the QR for better scan performance.
+              </FieldHint>
+              <ValidationMessage message={errors.margin?.message} />
+            </div>
+          </div>
+        </div>
+      </SectionCard>
+
+      <SectionCard
+        title="Generate"
+        description="Preview runs live as you type, and this button gives you a deliberate regenerate step."
+        contentClassName="space-y-4"
+      >
+        <div className="rounded-[24px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-sm leading-6 text-[color:var(--muted-foreground)]">
+          <p className="flex items-start gap-3">
+            <Sparkles className="mt-1 size-4 shrink-0 text-[color:var(--accent-strong)]" />
+            Live preview updates only when the current state passes validation, so downloads stay dependable.
+          </p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button type="submit" className="sm:flex-1" disabled={isSubmitting}>
+            <Wand2 className="size-4" />
+            Generate QR
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="sm:flex-1"
+            onClick={() => reset(DEFAULT_FORM_VALUES)}
+          >
+            <RefreshCcw className="size-4" />
+            Clear form
+          </Button>
+        </div>
+      </SectionCard>
+    </form>
+  );
+}
