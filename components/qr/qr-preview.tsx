@@ -1,19 +1,28 @@
 "use client";
 
 import { useEffect, useEffectEvent, useState } from "react";
-import { AlertTriangle, CheckCircle2, ScanLine, Sparkles } from "lucide-react";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Copy,
+  ExternalLink,
+  ScanLine,
+  Sparkles,
+} from "lucide-react";
 
 import { DownloadButtons } from "@/components/qr/download-buttons";
+import { Button } from "@/components/ui/button";
 import { SectionCard } from "@/components/ui/section-card";
 import { DEFAULT_SCAN_TIP } from "@/lib/constants";
 import { generateQrAssets } from "@/lib/qr";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
 import { cn } from "@/lib/utils";
-import type { QRFormValues, QRPreviewState } from "@/types/qr";
+import type { QRFormValues, QRPreviewState, ToastMessage } from "@/types/qr";
 
 interface QrPreviewProps {
   values: QRFormValues;
   refreshNonce: number;
+  onToast: (toast: Omit<ToastMessage, "id">) => void;
 }
 
 function hasDraftInput(values: QRFormValues) {
@@ -26,7 +35,9 @@ function hasDraftInput(values: QRFormValues) {
       return Boolean(sanitized.url);
     case "email":
       return Boolean(
-        sanitized.email || sanitized.emailSubject.trim() || sanitized.emailBody.trim(),
+        sanitized.email ||
+          sanitized.emailSubject.trim() ||
+          sanitized.emailBody.trim(),
       );
     case "phone":
       return Boolean(sanitized.phone);
@@ -43,7 +54,7 @@ function hasDraftInput(values: QRFormValues) {
   }
 }
 
-export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
+export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
   const [debouncedValues, setDebouncedValues] = useState(values);
   const [preview, setPreview] = useState<QRPreviewState>({
     status: "idle",
@@ -69,7 +80,7 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
         data: null,
         message: hasDraftInput(sanitized)
           ? "Preview updates automatically once the current fields are valid."
-          : "Choose a content type and add your data to see a live preview.",
+          : "Start with a QR type, drop in the example content, or paste your own data.",
       });
       return;
     }
@@ -77,7 +88,7 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
     setPreview((current) => ({
       status: "loading",
       data: current.data,
-      message: "Rendering preview…",
+      message: "Rendering preview...",
     }));
 
     try {
@@ -92,7 +103,7 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
         status: "error",
         data: null,
         message:
-          "We couldn’t render this QR code. Double-check the input and try again.",
+          "We could not render this QR code. Double-check the input and try again.",
       });
     }
   });
@@ -104,6 +115,30 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
   useEffect(() => {
     void runPreview(values);
   }, [refreshNonce, runPreview, values]);
+
+  async function handleCopyPayload(payload: string) {
+    try {
+      await navigator.clipboard.writeText(payload);
+      onToast({
+        tone: "success",
+        title: "Payload copied",
+        description: "The encoded text is now in your clipboard.",
+      });
+    } catch (error) {
+      console.error(error);
+      onToast({
+        tone: "error",
+        title: "Copy failed",
+        description: "Please copy the payload manually from the preview.",
+      });
+    }
+  }
+
+  function handleOpenLink(url: string) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  const isUrlType = values.type === "url" && preview.data?.payload;
 
   return (
     <div className="space-y-6">
@@ -150,12 +185,26 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
                         {preview.data.payload}
                       </p>
                     </div>
-                    {preview.status === "loading" ? (
-                      <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-2 text-sm text-[color:var(--muted-foreground)]">
-                        <Sparkles className="size-4 animate-pulse" />
-                        Updating
-                      </span>
-                    ) : null}
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => void handleCopyPayload(preview.data.payload)}
+                      >
+                        <Copy className="size-4" />
+                        Copy payload
+                      </Button>
+                      {isUrlType ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleOpenLink(preview.data.payload)}
+                        >
+                          <ExternalLink className="size-4" />
+                          Open link
+                        </Button>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               ) : preview.status === "error" ? (
@@ -182,10 +231,13 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
                     </span>
                     <div className="space-y-2">
                       <h3 className="text-xl font-semibold text-[color:var(--foreground)]">
-                        Preview will appear here
+                        Welcome to QR Forge
                       </h3>
                       <p className="text-sm leading-6 text-[color:var(--muted-foreground)]">
                         {preview.message}
+                      </p>
+                      <p className="text-sm leading-6 text-[color:var(--muted-foreground)]">
+                        Tip: Use the Try example button to instantly populate fields for the selected QR type.
                       </p>
                     </div>
                   </div>
@@ -204,6 +256,7 @@ export function QrPreview({ values, refreshNonce }: QrPreviewProps) {
           <DownloadButtons
             assets={preview.status === "ready" || preview.status === "loading" ? preview.data : null}
             values={preview.status === "ready" || preview.status === "loading" ? values : null}
+            onToast={onToast}
           />
         </div>
       </SectionCard>

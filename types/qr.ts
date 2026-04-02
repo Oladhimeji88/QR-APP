@@ -50,3 +50,34 @@ export interface QRPreviewState {
   data: QRGeneratedAssets | null;
   message?: string;
 }
+
+export interface QRHistoryItem {
+  id: string;
+  createdAt: string;
+  type: QRType;
+  summary: string;
+  payload: string;
+  values: QRFormValues;
+}
+
+export interface QRSizePreset {
+  id: string;
+  label: string;
+  size: number;
+  description: string;
+}
+
+export interface QRThemePreset {
+  id: string;
+  label: string;
+  description: string;
+  foreground: string;
+  background: string;
+}
+
+export interface ToastMessage {
+  id: number;
+  title: string;
+  description?: string;
+  tone: "success" | "error" | "info";
+}

@@ -1,12 +1,13 @@
 import QRCode from "qrcode";
 
-import {
-  CONTENT_TYPE_LABELS,
-  MAX_SUMMARY_LENGTH,
-} from "@/lib/constants";
+import { CONTENT_TYPE_LABELS, MAX_SUMMARY_LENGTH } from "@/lib/constants";
 import { slugifyFilename, truncate } from "@/lib/utils";
 import { sanitizeFormValues } from "@/lib/validation";
-import type { QRFormValues, QRGeneratedAssets, QRStyleOptions } from "@/types/qr";
+import type {
+  QRFormValues,
+  QRGeneratedAssets,
+  QRStyleOptions,
+} from "@/types/qr";
 
 function escapeWifiValue(value: string) {
   return value.replace(/([\\;,:"])/g, "\\$1");
@@ -55,10 +56,11 @@ export function buildQrPayload(input: QRFormValues) {
     case "wifi": {
       const encryption =
         values.wifiEncryption === "none" ? "nopass" : values.wifiEncryption;
+      const password = values.wifiEncryption === "none" ? "" : values.wifiPassword;
 
       return `WIFI:T:${encryption};S:${escapeWifiValue(
         values.wifiSsid,
-      )};P:${escapeWifiValue(values.wifiPassword)};H:${String(
+      )};P:${escapeWifiValue(password)};H:${String(
         values.wifiHidden,
       )};;`;
     }
@@ -81,12 +83,12 @@ export function buildQrSummary(input: QRFormValues) {
       return truncate(values.phone, MAX_SUMMARY_LENGTH);
     case "sms":
       return truncate(
-        `${values.smsNumber} · ${values.smsMessage}`,
+        `${values.smsNumber} - ${values.smsMessage}`,
         MAX_SUMMARY_LENGTH,
       );
     case "wifi":
       return truncate(
-        `${values.wifiSsid} · ${values.wifiEncryption === "none" ? "Open network" : values.wifiEncryption}`,
+        `${values.wifiSsid} - ${values.wifiEncryption === "none" ? "Open network" : values.wifiEncryption}`,
         MAX_SUMMARY_LENGTH,
       );
     default:

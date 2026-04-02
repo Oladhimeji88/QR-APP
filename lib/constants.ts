@@ -1,4 +1,10 @@
-import type { QRFormValues, QRType, WifiEncryption } from "@/types/qr";
+import type {
+  QRFormValues,
+  QRSizePreset,
+  QRThemePreset,
+  QRType,
+  WifiEncryption,
+} from "@/types/qr";
 
 export const APP_NAME = "QR Forge";
 
@@ -74,6 +80,84 @@ export const QR_MARGIN_RANGE = {
   step: 1,
 };
 
+export const QR_SIZE_PRESETS: QRSizePreset[] = [
+  {
+    id: "small",
+    label: "Small",
+    size: 384,
+    description: "Fast digital sharing",
+  },
+  {
+    id: "medium",
+    label: "Medium",
+    size: 768,
+    description: "Balanced default",
+  },
+  {
+    id: "large",
+    label: "Large",
+    size: 1024,
+    description: "Presentations and signage",
+  },
+  {
+    id: "print",
+    label: "Print",
+    size: 1536,
+    description: "High-resolution export",
+  },
+];
+
+export const QR_THEME_PRESETS: QRThemePreset[] = [
+  {
+    id: "classic",
+    label: "Classic",
+    description: "Black on white",
+    foreground: "#111827",
+    background: "#ffffff",
+  },
+  {
+    id: "dark",
+    label: "Dark",
+    description: "Slate contrast",
+    foreground: "#e2e8f0",
+    background: "#0f172a",
+  },
+  {
+    id: "brand-blue",
+    label: "Brand Blue",
+    description: "Blue accent system",
+    foreground: "#0f4c81",
+    background: "#f5fbff",
+  },
+];
+
+export const EXAMPLE_INPUTS: Record<QRType, Partial<QRFormValues>> = {
+  text: {
+    text: "Bring this code to the front desk for your visitor pass.",
+  },
+  url: {
+    url: "https://qrforge.dev/demo?ref=launch",
+  },
+  email: {
+    email: "hello@qrforge.dev",
+    emailSubject: "QR Forge demo request",
+    emailBody: "Hi team, I would love a quick walkthrough of QR Forge.",
+  },
+  phone: {
+    phone: "+14155550123",
+  },
+  sms: {
+    smsNumber: "+14155550123",
+    smsMessage: "Hi! I am interested in the QR Forge product demo.",
+  },
+  wifi: {
+    wifiSsid: "QR Forge Guest",
+    wifiPassword: "ForgeGuest2026",
+    wifiEncryption: "WPA",
+    wifiHidden: false,
+  },
+};
+
 export const DEFAULT_FORM_VALUES: QRFormValues = {
   type: "url",
   text: "",
@@ -98,3 +182,5 @@ export const DEFAULT_SCAN_TIP =
   "Test with your camera before printing to make sure contrast and margin feel right.";
 
 export const MAX_SUMMARY_LENGTH = 72;
+export const MAX_HISTORY_ITEMS = 6;
+export const RECENT_HISTORY_STORAGE_KEY = "qr-forge-history";

@@ -2,10 +2,16 @@
 
 import { useEffect, useEffectEvent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Paintbrush, RefreshCcw, Sparkles, Wand2 } from "lucide-react";
+import {
+  Paintbrush,
+  RefreshCcw,
+  Sparkles,
+  Wand2,
+} from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
 
 import { QrTypeSelector } from "@/components/qr/qr-type-selector";
+import { RecentHistory } from "@/components/qr/recent-history";
 import { Button } from "@/components/ui/button";
 import { FieldHint } from "@/components/ui/field-hint";
 import { Input } from "@/components/ui/input";
@@ -15,19 +21,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { ValidationMessage } from "@/components/ui/validation-message";
 import {
   DEFAULT_FORM_VALUES,
+  EXAMPLE_INPUTS,
   QR_MARGIN_RANGE,
+  QR_SIZE_PRESETS,
   QR_SIZE_RANGE,
+  QR_THEME_PRESETS,
   WIFI_ENCRYPTION_OPTIONS,
 } from "@/lib/constants";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
-import type { QRFormValues } from "@/types/qr";
+import { cn } from "@/lib/utils";
+import type { QRFormValues, QRHistoryItem } from "@/types/qr";
 
 interface QrFormProps {
+  historyItems: QRHistoryItem[];
+  onClearHistory: () => void;
   onPreviewChange: (values: QRFormValues) => void;
   onGenerate: (values: QRFormValues) => void;
 }
 
-export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
+export function QrForm({
+  historyItems,
+  onClearHistory,
+  onPreviewChange,
+  onGenerate,
+}: QrFormProps) {
   const {
     control,
     formState: { errors, isSubmitting },
@@ -43,8 +60,21 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
   });
 
   const values = useWatch({ control }) as QRFormValues;
-  const selectedType = useWatch({ control, name: "type" });
-  const wifiEncryption = useWatch({ control, name: "wifiEncryption" });
+  const selectedType =
+    useWatch({ control, name: "type" }) ?? DEFAULT_FORM_VALUES.type;
+  const wifiEncryption =
+    useWatch({ control, name: "wifiEncryption" }) ??
+    DEFAULT_FORM_VALUES.wifiEncryption;
+
+  const activeThemeId =
+    QR_THEME_PRESETS.find(
+      (preset) =>
+        preset.foreground.toLowerCase() === values.foreground.toLowerCase() &&
+        preset.background.toLowerCase() === values.background.toLowerCase(),
+    )?.id ?? null;
+
+  const activeSizeId =
+    QR_SIZE_PRESETS.find((preset) => preset.size === values.size)?.id ?? null;
 
   const emitPreviewChange = useEffectEvent((nextValues: QRFormValues) => {
     onPreviewChange(nextValues);
@@ -58,6 +88,34 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
     onGenerate(sanitizeFormValues(submittedValues));
   });
 
+  function applyExample() {
+    const nextValues = sanitizeFormValues({
+      ...DEFAULT_FORM_VALUES,
+      ...values,
+      ...EXAMPLE_INPUTS[selectedType],
+      type: selectedType,
+    });
+
+    reset(nextValues);
+  }
+
+  function applyTheme(themeId: string) {
+    const theme = QR_THEME_PRESETS.find((preset) => preset.id === themeId);
+
+    if (!theme) {
+      return;
+    }
+
+    setValue("foreground", theme.foreground, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+    setValue("background", theme.background, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  }
+
   return (
     <form className="space-y-6" onSubmit={handleFormSubmit}>
       <SectionCard
@@ -66,15 +124,27 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
       >
         <QrTypeSelector
           value={selectedType}
-          onChange={(type) => setValue("type", type, { shouldValidate: true, shouldDirty: true })}
+          onChange={(type) =>
+            setValue("type", type, { shouldValidate: true, shouldDirty: true })
+          }
         />
       </SectionCard>
 
       <SectionCard
         title="Content"
         description="Fields adapt to the selected QR type so you only see what matters."
+        action={
+          <Button type="button" variant="ghost" size="sm" onClick={applyExample}>
+            Try example
+          </Button>
+        }
       >
         <div className="space-y-5">
+          <div className="rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-sm leading-6 text-[color:var(--muted-foreground)]">
+            Sample inputs are available for every QR type. Use one as a starting point,
+            then swap in your own content.
+          </div>
+
           {selectedType === "text" ? (
             <div className="space-y-2">
               <Label htmlFor="text">Plain text</Label>
@@ -133,7 +203,7 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
                 <Label htmlFor="emailBody">Body</Label>
                 <Textarea
                   id="emailBody"
-                  placeholder="Thanks for reaching out. We’ll get back to you shortly."
+                  placeholder="Thanks for reaching out. We will get back to you shortly."
                   aria-invalid={Boolean(errors.emailBody)}
                   {...register("emailBody")}
                 />
@@ -176,7 +246,7 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
                 <Label htmlFor="smsMessage">Message</Label>
                 <Textarea
                   id="smsMessage"
-                  placeholder="Hi there, I’d love to learn more about your product."
+                  placeholder="Hi there, I would love to learn more about your product."
                   aria-invalid={Boolean(errors.smsMessage)}
                   {...register("smsMessage")}
                 />
@@ -204,7 +274,11 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
                   <Input
                     id="wifiPassword"
                     type={wifiEncryption === "none" ? "text" : "password"}
-                    placeholder={wifiEncryption === "none" ? "Not required for open networks" : "Enter network password"}
+                    placeholder={
+                      wifiEncryption === "none"
+                        ? "Not required for open networks"
+                        : "Enter network password"
+                    }
                     aria-invalid={Boolean(errors.wifiPassword)}
                     disabled={wifiEncryption === "none"}
                     {...register("wifiPassword")}
@@ -259,6 +333,78 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
         }
       >
         <div className="grid gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <Label>Size preset</Label>
+              <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-sm text-[color:var(--muted-foreground)]">
+                {values.size}px
+              </span>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {QR_SIZE_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() =>
+                    setValue("size", preset.size, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    })
+                  }
+                  className={cn(
+                    "rounded-[22px] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
+                    activeSizeId === preset.id
+                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(18,115,96,0.18),0_18px_40px_rgba(18,115,96,0.14)]"
+                      : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
+                  )}
+                >
+                  <p className="text-sm font-semibold text-[color:var(--foreground)]">
+                    {preset.label}
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-[color:var(--muted-foreground)]">
+                    {preset.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Label>Theme preset</Label>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {QR_THEME_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => applyTheme(preset.id)}
+                  className={cn(
+                    "rounded-[22px] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
+                    activeThemeId === preset.id
+                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(18,115,96,0.18),0_18px_40px_rgba(18,115,96,0.14)]"
+                      : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
+                  )}
+                >
+                  <div className="mb-3 flex items-center gap-2">
+                    <span
+                      className="inline-flex size-5 rounded-full border border-black/10"
+                      style={{ backgroundColor: preset.foreground }}
+                    />
+                    <span
+                      className="inline-flex size-5 rounded-full border border-black/10"
+                      style={{ backgroundColor: preset.background }}
+                    />
+                  </div>
+                  <p className="text-sm font-semibold text-[color:var(--foreground)]">
+                    {preset.label}
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-[color:var(--muted-foreground)]">
+                    {preset.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="space-y-3">
               <Label htmlFor="foreground">Foreground color</Label>
@@ -294,7 +440,7 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-4">
-                <Label htmlFor="size">QR size</Label>
+                <Label htmlFor="size">Custom size</Label>
                 <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-sm text-[color:var(--muted-foreground)]">
                   {values.size}px
                 </span>
@@ -364,6 +510,12 @@ export function QrForm({ onPreviewChange, onGenerate }: QrFormProps) {
           </Button>
         </div>
       </SectionCard>
+
+      <RecentHistory
+        items={historyItems}
+        onClear={onClearHistory}
+        onSelect={(nextValues) => reset(nextValues)}
+      />
     </form>
   );
 }

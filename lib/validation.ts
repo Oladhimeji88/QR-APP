@@ -27,7 +27,8 @@ export function sanitizeFormValues(values: QRFormValues): QRFormValues {
     phone: values.phone.trim(),
     smsNumber: values.smsNumber.trim(),
     wifiSsid: values.wifiSsid.trim(),
-    wifiPassword: values.wifiPassword.trim(),
+    wifiPassword:
+      values.wifiEncryption === "none" ? "" : values.wifiPassword.trim(),
   };
 }
 
@@ -57,12 +58,12 @@ export const qrFormSchema = z
     wifiEncryption: z.enum(WIFI_ENCRYPTIONS),
     wifiHidden: z.boolean(),
     size: z
-      .number({ invalid_type_error: "Choose a QR size." })
+      .coerce.number({ invalid_type_error: "Choose a QR size." })
       .int("QR size must be a whole number.")
       .min(QR_SIZE_RANGE.min)
       .max(QR_SIZE_RANGE.max),
     margin: z
-      .number({ invalid_type_error: "Choose a quiet-zone margin." })
+      .coerce.number({ invalid_type_error: "Choose a quiet-zone margin." })
       .int("Margin must be a whole number.")
       .min(QR_MARGIN_RANGE.min)
       .max(QR_MARGIN_RANGE.max),
@@ -110,7 +111,7 @@ export const qrFormSchema = z
           break;
         }
 
-        if (!z.email().safeParse(sanitized.email).success) {
+        if (!z.string().email().safeParse(sanitized.email).success) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             path: ["email"],

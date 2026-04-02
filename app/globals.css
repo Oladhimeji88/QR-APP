@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4efe7;
+  --foreground: #111827;
+  --muted-foreground: #526173;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.9);
+  --surface-tint: rgba(18, 115, 96, 0.14);
+  --card: rgba(255, 255, 255, 0.72);
+  --border: rgba(17, 24, 39, 0.08);
+  --border-strong: rgba(17, 24, 39, 0.16);
+  --accent-soft: #7dd3c4;
+  --accent-strong: #127360;
+  --accent-stronger: #0d5a4b;
+  --ring: rgba(18, 115, 96, 0.38);
+  --ring-soft: rgba(18, 115, 96, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #081018;
+    --foreground: #f8fafc;
+    --muted-foreground: #96a5b5;
+    --surface: rgba(8, 16, 24, 0.7);
+    --surface-strong: rgba(15, 23, 42, 0.85);
+    --surface-tint: rgba(45, 212, 191, 0.12);
+    --card: rgba(10, 17, 27, 0.72);
+    --border: rgba(148, 163, 184, 0.14);
+    --border-strong: rgba(148, 163, 184, 0.24);
+    --accent-soft: #68d8c4;
+    --accent-strong: #2dd4bf;
+    --accent-stronger: #14b8a6;
+    --ring: rgba(45, 212, 191, 0.44);
+    --ring-soft: rgba(45, 212, 191, 0.16);
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: rgba(18, 115, 96, 0.2);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 16px;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 16px;
+}
