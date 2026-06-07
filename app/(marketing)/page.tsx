@@ -98,9 +98,10 @@ const trustPoints = [
 
 export default function MarketingPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-24 pt-10">
-      {/* Hero */}
-      <section className="relative grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 py-12 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
+    <div className="pb-24">
+      {/* Hero — full width */}
+      <section className="relative w-full overflow-hidden border-b border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-20">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
         <div className="animate-fade-in-up space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
             <span className="relative flex size-2">
@@ -111,13 +112,13 @@ export default function MarketingPage() {
           </div>
 
           <div className="space-y-5">
-            <h1 className="max-w-2xl text-balance text-5xl font-semibold leading-[1.05] tracking-tight text-[color:var(--foreground)] sm:text-6xl">
+            <h1 className="max-w-3xl text-balance text-6xl font-extrabold leading-[1.02] tracking-tight text-[color:var(--foreground)] sm:text-7xl">
               Create QR codes{" "}
               <span className="bg-[linear-gradient(120deg,var(--accent-strong),var(--accent-soft))] bg-clip-text text-transparent">
                 instantly
               </span>
             </h1>
-            <p className="max-w-xl text-lg leading-8 text-[color:var(--muted-foreground)]">
+            <p className="max-w-2xl text-xl leading-9 text-[color:var(--muted-foreground)]">
               {APP_DESCRIPTION}
             </p>
           </div>
@@ -156,11 +157,13 @@ export default function MarketingPage() {
           <img
             src="/hero.png"
             alt="Person relaxing with a phone surrounded by playful 3D shapes"
-            className="relative mx-auto w-full max-w-md rounded-lg object-cover"
+            className="animate-float relative mx-auto w-full max-w-md rounded-lg object-cover"
           />
+        </div>
         </div>
       </section>
 
+      <div className="mx-auto max-w-7xl px-6 pt-16">
       {/* Stats */}
       <section className="mt-6">
         <dl className="grid grid-cols-2 gap-4 rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-8 backdrop-blur sm:grid-cols-4 sm:px-10">
@@ -310,6 +313,7 @@ export default function MarketingPage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
