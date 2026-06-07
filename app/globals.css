@@ -12,20 +12,20 @@
   /* 60% — dominant white */
   --background: #ffffff;
   /* 30% — secondary structure + text (deep green) */
-  --foreground: #0f2a1e;
-  --muted-foreground: #4c6b5d;
-  --surface: rgba(240, 248, 244, 0.85);
+  --foreground: #103a23;
+  --muted-foreground: #4c6b5a;
+  --surface: rgba(240, 250, 243, 0.85);
   --surface-strong: rgba(255, 255, 255, 0.96);
   --card: #ffffff;
-  --border: rgba(47, 122, 91, 0.16);
-  --border-strong: rgba(47, 122, 91, 0.32);
-  /* 10% — green accent */
-  --accent-soft: #9ed3ba;
-  --accent-strong: #2f7a5b;
-  --accent-stronger: #246349;
-  --surface-tint: rgba(47, 122, 91, 0.1);
-  --ring: rgba(47, 122, 91, 0.4);
-  --ring-soft: rgba(47, 122, 91, 0.16);
+  --border: rgba(63, 150, 90, 0.18);
+  --border-strong: rgba(63, 150, 90, 0.36);
+  /* 10% — green accent (#63d471) */
+  --accent-soft: #a6e7b1;
+  --accent-strong: #63d471;
+  --accent-stronger: #3fbf63;
+  --surface-tint: rgba(99, 212, 113, 0.14);
+  --ring: rgba(99, 212, 113, 0.45);
+  --ring-soft: rgba(99, 212, 113, 0.18);
 }
 
 @theme inline {
@@ -51,7 +51,7 @@ body {
 }
 
 ::selection {
-  background: rgba(47, 122, 91, 0.18);
+  background: rgba(99, 212, 113, 0.25);
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {

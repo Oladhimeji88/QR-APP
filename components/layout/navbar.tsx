@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { BrandGlyph } from "@/components/layout/brand-glyph";
 import { buttonVariants } from "@/components/ui/button";
@@ -17,7 +17,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-[color:var(--border)] bg-[color:var(--background)]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-white shadow-[0_18px_40px_rgba(63,122,99,0.28)]">
+          <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-[color:var(--foreground)] shadow-[0_18px_40px_rgba(99,212,113,0.28)]">
             <BrandGlyph className="size-6" />
           </span>
           <span className="block text-lg font-semibold tracking-tight text-[color:var(--foreground)]">
@@ -38,10 +38,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <span className="hidden items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-tint)] px-3 py-1.5 text-xs font-medium text-[color:var(--accent-strong)] md:inline-flex">
-            <Sparkles className="size-3.5" />
-            Generated locally
-          </span>
           <Link
             href="/generate"
             className={cn(buttonVariants({ size: "default" }), "hidden sm:inline-flex")}
