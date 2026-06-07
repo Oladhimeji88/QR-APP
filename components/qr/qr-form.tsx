@@ -31,7 +31,8 @@ import {
   QR_SIZE_RANGE,
   WIFI_ENCRYPTION_OPTIONS,
 } from "@/lib/constants";
-import { fileToLogoDataUrl } from "@/lib/qr-image";
+import { LogoCropModal } from "@/components/qr/logo-crop-modal";
+import { fileToDataUrl } from "@/lib/qr-image";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import type { QRFormValues, QRHistoryItem, QRType } from "@/types/qr";
@@ -69,6 +70,7 @@ export function QrForm({
 
   const logoInputRef = useRef<HTMLInputElement>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
 
   const values = useWatch({ control }) as QRFormValues;
   const selectedType =
@@ -115,8 +117,8 @@ export function QrForm({
     }
 
     try {
-      const dataUrl = await fileToLogoDataUrl(file);
-      setValue("logo", dataUrl, { shouldDirty: true, shouldValidate: true });
+      const dataUrl = await fileToDataUrl(file);
+      setCropSrc(dataUrl);
     } catch (error) {
       console.error(error);
       setLogoError("We could not read that image. Try a different file.");
