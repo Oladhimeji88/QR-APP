@@ -160,6 +160,7 @@ export const EXAMPLE_INPUTS: Record<QRType, Partial<QRFormValues>> = {
 
 export const DEFAULT_FORM_VALUES: QRFormValues = {
   type: "url",
+  logo: "",
   text: "",
   url: "",
   email: "",
@@ -180,6 +181,12 @@ export const DEFAULT_FORM_VALUES: QRFormValues = {
 
 export const DEFAULT_SCAN_TIP =
   "Test with your camera before printing to make sure contrast and margin feel right.";
+
+/** Logo embedding limits. Uploads are downscaled client-side to keep payloads small. */
+export const LOGO_MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+export const LOGO_MAX_DIMENSION = 480;
+/** Logo footprint as a fraction of the QR width. Stays within level-H error budget. */
+export const LOGO_SIZE_RATIO = 0.22;
 
 export const MAX_SUMMARY_LENGTH = 72;
 export const MAX_HISTORY_ITEMS = 6;

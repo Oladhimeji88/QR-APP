@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { SectionCard } from "@/components/ui/section-card";
 import { DEFAULT_SCAN_TIP } from "@/lib/constants";
 import { generateQrAssets } from "@/lib/qr";
+import { embedLogoInPng, embedLogoInSvg } from "@/lib/qr-image";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import type { QRFormValues, QRPreviewState, ToastMessage } from "@/types/qr";
@@ -92,6 +93,24 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
 
     try {
       const assets = await generateQrAssets(validation.data);
+
+      if (validation.data.logo) {
+        const [pngDataUrl, svgString] = await Promise.all([
+          embedLogoInPng(
+            assets.pngDataUrl,
+            validation.data.logo,
+            validation.data.size,
+          ),
+          Promise.resolve(embedLogoInSvg(assets.svgString, validation.data.logo)),
+        ]);
+
+        setPreview({
+          status: "ready",
+          data: { ...assets, pngDataUrl, svgString },
+        });
+        return;
+      }
+
       setPreview({
         status: "ready",
         data: assets,

@@ -68,6 +68,32 @@ export function DownloadButtons({ assets, values, onToast }: DownloadButtonsProp
       return;
     }
 
+    // When a logo is embedded, the assets are already composited client-side.
+    // The API renders plain QR codes, so download those assets directly.
+    if (values.logo) {
+      if (format === "svg") {
+        downloadFile({
+          content: assets.svgString,
+          fileName: buildFileName("svg"),
+          mimeType: "image/svg+xml;charset=utf-8",
+        });
+      } else {
+        downloadFile({
+          content: assets.pngDataUrl,
+          fileName: buildFileName("png"),
+          mimeType: "image/png",
+          isDataUrl: true,
+        });
+      }
+
+      onToast({
+        tone: "success",
+        title: `Downloaded ${format.toUpperCase()}`,
+        description: "Your QR file is ready in the browser downloads.",
+      });
+      return;
+    }
+
     try {
       const apiResult = await requestQrFromApi(values, format);
 

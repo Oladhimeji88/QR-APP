@@ -1,12 +1,14 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowLeft,
+  ImagePlus,
   Paintbrush,
   RefreshCcw,
   Sparkles,
+  Trash2,
   Wand2,
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
@@ -23,11 +25,13 @@ import {
   CONTENT_TYPE_LABELS,
   DEFAULT_FORM_VALUES,
   EXAMPLE_INPUTS,
+  LOGO_MAX_UPLOAD_BYTES,
   QR_MARGIN_RANGE,
   QR_SIZE_PRESETS,
   QR_SIZE_RANGE,
   WIFI_ENCRYPTION_OPTIONS,
 } from "@/lib/constants";
+import { fileToLogoDataUrl } from "@/lib/qr-image";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import type { QRFormValues, QRHistoryItem, QRType } from "@/types/qr";
@@ -63,9 +67,13 @@ export function QrForm({
     reValidateMode: "onChange",
   });
 
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const [logoError, setLogoError] = useState<string | null>(null);
+
   const values = useWatch({ control }) as QRFormValues;
   const selectedType =
     useWatch({ control, name: "type" }) ?? DEFAULT_FORM_VALUES.type;
+  const logo = useWatch({ control, name: "logo" }) ?? "";
   const wifiEncryption =
     useWatch({ control, name: "wifiEncryption" }) ??
     DEFAULT_FORM_VALUES.wifiEncryption;
@@ -84,6 +92,41 @@ export function QrForm({
   const handleFormSubmit = handleSubmit((submittedValues) => {
     onGenerate(sanitizeFormValues(submittedValues));
   });
+
+  async function handleLogoUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (logoInputRef.current) {
+      logoInputRef.current.value = "";
+    }
+    if (!file) {
+      return;
+    }
+
+    setLogoError(null);
+
+    if (!file.type.startsWith("image/")) {
+      setLogoError("Choose an image file (PNG, JPG, or SVG).");
+      return;
+    }
+
+    if (file.size > LOGO_MAX_UPLOAD_BYTES) {
+      setLogoError("Image is too large. Pick a file under 5 MB.");
+      return;
+    }
+
+    try {
+      const dataUrl = await fileToLogoDataUrl(file);
+      setValue("logo", dataUrl, { shouldDirty: true, shouldValidate: true });
+    } catch (error) {
+      console.error(error);
+      setLogoError("We could not read that image. Try a different file.");
+    }
+  }
+
+  function removeLogo() {
+    setLogoError(null);
+    setValue("logo", "", { shouldDirty: true, shouldValidate: true });
+  }
 
   function applyExample() {
     const nextValues = sanitizeFormValues({
@@ -381,6 +424,63 @@ export function QrForm({
                 <Input className="h-11 flex-1" readOnly value={values.background} />
               </div>
               <ValidationMessage message={errors.background?.message} />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Label>Center logo (optional)</Label>
+            <div className="flex flex-col gap-4 rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 sm:flex-row sm:items-center">
+              <div className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white">
+                {logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logo}
+                    alt="Selected logo preview"
+                    className="size-full object-contain p-2"
+                  />
+                ) : (
+                  <ImagePlus className="size-7 text-[color:var(--muted-foreground)]" />
+                )}
+              </div>
+
+              <div className="flex-1 space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => logoInputRef.current?.click()}
+                  >
+                    <ImagePlus className="size-4" />
+                    {logo ? "Replace image" : "Upload image"}
+                  </Button>
+                  {logo ? (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={removeLogo}
+                    >
+                      <Trash2 className="size-4" />
+                      Remove
+                    </Button>
+                  ) : null}
+                </div>
+                <FieldHint>
+                  Drop a logo in the center of your QR. PNG, JPG, or SVG up to 5 MB —
+                  keep it simple so the code stays easy to scan.
+                </FieldHint>
+                <ValidationMessage message={logoError ?? errors.logo?.message} />
+              </div>
+
+              <input
+                ref={logoInputRef}
+                type="file"
+                accept="image/*"
+                aria-label="Upload center logo image"
+                className="hidden"
+                onChange={handleLogoUpload}
+              />
             </div>
           </div>
 

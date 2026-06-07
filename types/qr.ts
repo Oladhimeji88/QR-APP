@@ -19,6 +19,8 @@ export interface QRStyleOptions {
 
 export interface QRFormValues extends QRStyleOptions {
   type: QRType;
+  /** Optional center logo as an image data URL. Empty string means no logo. */
+  logo: string;
   text: string;
   url: string;
   email: string;

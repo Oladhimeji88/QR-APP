@@ -35,6 +35,13 @@ export function sanitizeFormValues(values: QRFormValues): QRFormValues {
 export const qrFormSchema = z
   .object({
     type: z.enum(QR_TYPES),
+    logo: z
+      .string()
+      .max(3_000_000, "Logo image is too large. Use a smaller file.")
+      .refine(
+        (value) => value === "" || value.startsWith("data:image/"),
+        "Logo must be an image file.",
+      ),
     text: z
       .string()
       .max(3000, "Keep plain text under 3000 characters for dependable scanning."),
