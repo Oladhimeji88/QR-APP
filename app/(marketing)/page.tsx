@@ -103,7 +103,7 @@ export default function MarketingPage() {
     <div className="relative pb-24">
       <FloatingDecor />
       {/* Hero — full width */}
-      <section className="relative w-full overflow-hidden border-b border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 pt-2 pb-16 sm:px-10 sm:pt-3 sm:pb-20">
+      <section className="relative w-full overflow-hidden border-b border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 pt-0 pb-16 sm:px-10 sm:pt-0 sm:pb-20">
         <video
           autoPlay
           muted
