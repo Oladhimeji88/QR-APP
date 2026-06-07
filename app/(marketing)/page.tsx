@@ -156,7 +156,7 @@ export default function MarketingPage() {
           <img
             src="/hero.png"
             alt="Person relaxing with a phone surrounded by playful 3D shapes"
-            className="relative mx-auto w-full max-w-md rounded-lg object-cover shadow-[0_24px_90px_rgba(15,23,42,0.2)]"
+            className="relative mx-auto w-full max-w-md rounded-lg object-cover"
           />
         </div>
       </section>
