@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -8,7 +8,7 @@ import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 
 import "./globals.css";
 
-const sans = Space_Grotesk({
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4efe7" },
-    { media: "(prefers-color-scheme: dark)", color: "#081018" },
+    { media: "(prefers-color-scheme: light)", color: "#eef2ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c1410" },
   ],
 };
 
@@ -57,7 +57,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${sans.variable} ${mono.variable} min-h-screen bg-[color:var(--background)] font-sans text-[color:var(--foreground)] antialiased`}>
         <div className="relative flex min-h-screen flex-col">
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(18,115,96,0.18),transparent_35%),radial-gradient(circle_at_85%_10%,rgba(234,88,12,0.12),transparent_24%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.16),transparent_38%),radial-gradient(circle_at_85%_10%,rgba(156,198,177,0.14),transparent_26%)]" />
           <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(15,23,42,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.02)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(circle_at_center,black,transparent_92%)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
           <Navbar />
           <main className="flex-1">{children}</main>

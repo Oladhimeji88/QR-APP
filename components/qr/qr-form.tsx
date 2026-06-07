@@ -354,7 +354,7 @@ export function QrForm({
                   className={cn(
                     "rounded-[22px] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
                     activeSizeId === preset.id
-                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(18,115,96,0.18),0_18px_40px_rgba(18,115,96,0.14)]"
+                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(63,122,99,0.18),0_18px_40px_rgba(63,122,99,0.14)]"
                       : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
                   )}
                 >
@@ -380,7 +380,7 @@ export function QrForm({
                   className={cn(
                     "rounded-[22px] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
                     activeThemeId === preset.id
-                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(18,115,96,0.18),0_18px_40px_rgba(18,115,96,0.14)]"
+                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(63,122,99,0.18),0_18px_40px_rgba(63,122,99,0.14)]"
                       : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
                   )}
                 >

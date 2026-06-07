@@ -1,38 +1,51 @@
 @import "tailwindcss";
 
+/*
+  Color system — 60:30:10 rule
+  60%  Dominant neutral .......... --background (calm, low-chroma surface the eye rests on)
+  30%  Secondary ................. --surface / --card / --foreground (structure & text)
+  10%  Accent .................... --accent-strong (calm green, used sparingly for emphasis)
+*/
+
 :root {
-  --background: #f4efe7;
-  --foreground: #111827;
-  --muted-foreground: #526173;
+  /* 60% — dominant calm neutral */
+  --background: #eef2ee;
+  /* 30% — secondary structure + text */
+  --foreground: #14201a;
+  --muted-foreground: #586b60;
   --surface: rgba(255, 255, 255, 0.72);
-  --surface-strong: rgba(255, 255, 255, 0.9);
-  --surface-tint: rgba(18, 115, 96, 0.14);
-  --card: rgba(255, 255, 255, 0.72);
-  --border: rgba(17, 24, 39, 0.08);
-  --border-strong: rgba(17, 24, 39, 0.16);
-  --accent-soft: #7dd3c4;
-  --accent-strong: #127360;
-  --accent-stronger: #0d5a4b;
-  --ring: rgba(18, 115, 96, 0.38);
-  --ring-soft: rgba(18, 115, 96, 0.14);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --card: rgba(255, 255, 255, 0.74);
+  --border: rgba(20, 32, 26, 0.08);
+  --border-strong: rgba(20, 32, 26, 0.16);
+  /* 10% — calm green accent */
+  --accent-soft: #9cc6b1;
+  --accent-strong: #3f7a63;
+  --accent-stronger: #336450;
+  --surface-tint: rgba(63, 122, 99, 0.12);
+  --ring: rgba(63, 122, 99, 0.38);
+  --ring-soft: rgba(63, 122, 99, 0.14);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #081018;
-    --foreground: #f8fafc;
-    --muted-foreground: #96a5b5;
-    --surface: rgba(8, 16, 24, 0.7);
-    --surface-strong: rgba(15, 23, 42, 0.85);
-    --surface-tint: rgba(45, 212, 191, 0.12);
-    --card: rgba(10, 17, 27, 0.72);
-    --border: rgba(148, 163, 184, 0.14);
-    --border-strong: rgba(148, 163, 184, 0.24);
-    --accent-soft: #68d8c4;
-    --accent-strong: #2dd4bf;
-    --accent-stronger: #14b8a6;
-    --ring: rgba(45, 212, 191, 0.44);
-    --ring-soft: rgba(45, 212, 191, 0.16);
+    /* 60% — dominant calm neutral */
+    --background: #0c1410;
+    /* 30% — secondary structure + text */
+    --foreground: #eef3ef;
+    --muted-foreground: #92a89b;
+    --surface: rgba(12, 20, 16, 0.7);
+    --surface-strong: rgba(18, 28, 22, 0.85);
+    --card: rgba(14, 22, 18, 0.72);
+    --border: rgba(158, 199, 179, 0.14);
+    --border-strong: rgba(158, 199, 179, 0.24);
+    /* 10% — calm green accent */
+    --accent-soft: #7fc4a3;
+    --accent-strong: #4f9b7d;
+    --accent-stronger: #438a6e;
+    --surface-tint: rgba(127, 196, 163, 0.12);
+    --ring: rgba(79, 155, 125, 0.44);
+    --ring-soft: rgba(79, 155, 125, 0.16);
   }
 }
 
@@ -55,7 +68,7 @@ body {
 }
 
 ::selection {
-  background: rgba(18, 115, 96, 0.2);
+  background: rgba(63, 122, 99, 0.2);
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
