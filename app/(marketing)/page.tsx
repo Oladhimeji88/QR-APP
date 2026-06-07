@@ -170,7 +170,7 @@ export default function MarketingPage() {
           {stats.map((stat) => (
             <div key={stat.label} className="text-center sm:text-left">
               <dt className="sr-only">{stat.label}</dt>
-              <dd className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+              <dd className="text-3xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
                 {stat.value}
               </dd>
               <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted-foreground)]">
@@ -187,7 +187,7 @@ export default function MarketingPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             One tool, every format
           </p>
-          <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+          <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
             Encode anything your audience needs to scan
           </h2>
         </div>
@@ -219,7 +219,7 @@ export default function MarketingPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             Why teams use it
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
             Built like a serious product, not a throwaway demo
           </h2>
           <p className="text-lg leading-8 text-[color:var(--muted-foreground)]">
@@ -252,7 +252,7 @@ export default function MarketingPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             How it works
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
             From raw input to a clean download in three steps
           </h2>
         </div>
@@ -287,7 +287,7 @@ export default function MarketingPage() {
               <Zap className="size-4" />
               Ready to build
             </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Move from raw text to clean download in seconds
             </h2>
             <p className="text-lg leading-8 text-white/75">

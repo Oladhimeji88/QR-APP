@@ -36,7 +36,7 @@ export default function BulkPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
               Bulk &amp; print
             </p>
-            <h1 className="max-w-3xl text-balance text-4xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-5xl">
+            <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-5xl">
               Generate hundreds of QR codes from a single spreadsheet
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-[color:var(--muted-foreground)]">
@@ -54,7 +54,7 @@ export default function BulkPage() {
                 <span className="inline-flex size-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.18))] text-[color:var(--accent-strong)]">
                   <item.icon className="size-5" />
                 </span>
-                <h2 className="mt-4 text-base font-semibold text-[color:var(--foreground)]">
+                <h2 className="mt-4 text-base font-bold text-[color:var(--foreground)]">
                   {item.title}
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-[color:var(--muted-foreground)]">

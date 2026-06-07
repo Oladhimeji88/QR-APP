@@ -15,7 +15,7 @@ export function FormatChooser({ value, onSelect }: FormatChooserProps) {
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
           Step 1 of 2
         </p>
-        <h2 className="text-2xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-3xl">
+        <h2 className="text-2xl font-bold tracking-tight text-[color:var(--foreground)] sm:text-3xl">
           What do you want to share?
         </h2>
         <p className="text-[color:var(--muted-foreground)]">
