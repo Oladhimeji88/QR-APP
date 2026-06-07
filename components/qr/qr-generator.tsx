@@ -85,44 +85,63 @@ export function QrGenerator() {
 
   return (
     <>
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(380px,0.85fr)]">
-        <QrForm
-          historyItems={historyItems}
-          onClearHistory={() => {
-            setHistoryItems([]);
-            notify({
-              tone: "info",
-              title: "History cleared",
-              description: "Recent QR generations were removed from this browser.",
-            });
-          }}
-          onPreviewChange={(values) => {
-            startTransition(() => {
-              setPreviewValues(values);
-            });
-          }}
-          onGenerate={(values) => {
-            startTransition(() => {
-              setPreviewValues(values);
-              setRefreshNonce((current) => current + 1);
-            });
-
-            addToHistory(values);
-            notify({
-              tone: "success",
-              title: "QR updated",
-              description: "Your latest generation is ready for preview and export.",
-            });
-          }}
-        />
-        <div className="xl:sticky xl:top-28 xl:self-start">
-          <QrPreview
-            values={previewValues}
-            refreshNonce={refreshNonce}
-            onToast={notify}
+      {step === "format" ? (
+        <div key="format">
+          <FormatChooser
+            value={selectedType}
+            onSelect={(type) => {
+              setSelectedType(type);
+              setPreviewValues({ ...DEFAULT_FORM_VALUES, type });
+              setStep("create");
+            }}
           />
         </div>
-      </div>
+      ) : (
+        <div
+          key="create"
+          className="grid animate-fade-in-up gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(380px,0.85fr)]"
+        >
+          <QrForm
+            key={selectedType}
+            initialType={selectedType}
+            historyItems={historyItems}
+            onChangeFormat={() => setStep("format")}
+            onClearHistory={() => {
+              setHistoryItems([]);
+              notify({
+                tone: "info",
+                title: "History cleared",
+                description: "Recent QR generations were removed from this browser.",
+              });
+            }}
+            onPreviewChange={(values) => {
+              startTransition(() => {
+                setPreviewValues(values);
+              });
+            }}
+            onGenerate={(values) => {
+              startTransition(() => {
+                setPreviewValues(values);
+                setRefreshNonce((current) => current + 1);
+              });
+
+              addToHistory(values);
+              notify({
+                tone: "success",
+                title: "QR updated",
+                description: "Your latest generation is ready for preview and export.",
+              });
+            }}
+          />
+          <div className="xl:sticky xl:top-28 xl:self-start">
+            <QrPreview
+              values={previewValues}
+              refreshNonce={refreshNonce}
+              onToast={notify}
+            />
+          </div>
+        </div>
+      )}
       <ToastViewport toast={toast} onDismiss={() => setToast(null)} />
     </>
   );

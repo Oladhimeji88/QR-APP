@@ -23,6 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Reveal } from "@/components/ui/reveal";
 import { APP_DESCRIPTION } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -101,7 +102,7 @@ export default function MarketingPage() {
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-10">
       {/* Hero */}
       <section className="relative grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 py-12 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
-        <div className="space-y-8">
+        <div className="animate-fade-in-up space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-[color:var(--accent-strong)] opacity-60" />
@@ -150,7 +151,7 @@ export default function MarketingPage() {
           </ul>
         </div>
 
-        <div className="relative">
+        <div className="relative animate-scale-in [animation-delay:140ms]">
           <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.28),transparent_60%)] blur-2xl" />
           <Card className="relative overflow-hidden border-[color:var(--border)] bg-[linear-gradient(180deg,#ffffff,rgba(240,248,244,0.85))]">
             <CardHeader>
@@ -238,23 +239,22 @@ export default function MarketingPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {contentTypes.map((type) => (
-            <div
-              key={type.label}
-              className="group flex flex-col items-center gap-3 rounded-3xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]"
-            >
-              <span className="grid size-12 place-items-center rounded-2xl bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
-                <type.icon className="size-6" />
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-[color:var(--foreground)]">
-                  {type.label}
-                </p>
-                <p className="text-xs text-[color:var(--muted-foreground)]">
-                  {type.description}
-                </p>
+          {contentTypes.map((type, index) => (
+            <Reveal key={type.label} delay={index * 60} className="h-full">
+              <div className="group flex h-full flex-col items-center gap-3 border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]">
+                <span className="grid size-12 place-items-center bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                  <type.icon className="size-6" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-[color:var(--foreground)]">
+                    {type.label}
+                  </p>
+                  <p className="text-xs text-[color:var(--muted-foreground)]">
+                    {type.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -276,19 +276,18 @@ export default function MarketingPage() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {features.map((feature) => (
-            <Card
-              key={feature.title}
-              className="group h-full transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_90px_rgba(15,23,42,0.12)]"
-            >
-              <CardHeader>
-                <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(63,122,99,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
-                  <feature.icon className="size-6" />
-                </span>
-                <CardTitle className="pt-2">{feature.title}</CardTitle>
-                <CardDescription>{feature.description}</CardDescription>
-              </CardHeader>
-            </Card>
+          {features.map((feature, index) => (
+            <Reveal key={feature.title} delay={index * 80} className="h-full">
+              <Card className="group h-full transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_90px_rgba(15,23,42,0.12)]">
+                <CardHeader>
+                  <span className="inline-flex size-12 items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),rgba(63,122,99,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                    <feature.icon className="size-6" />
+                  </span>
+                  <CardTitle className="pt-2">{feature.title}</CardTitle>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -306,7 +305,7 @@ export default function MarketingPage() {
 
         <div className="grid gap-5 md:grid-cols-3">
           {steps.map((item, index) => (
-            <div key={item.step} className="relative">
+            <Reveal key={item.step} delay={index * 90} className="relative h-full">
               <Card className="h-full">
                 <CardHeader>
                   <div className="flex items-center gap-3">
@@ -321,7 +320,7 @@ export default function MarketingPage() {
                   <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
               </Card>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>

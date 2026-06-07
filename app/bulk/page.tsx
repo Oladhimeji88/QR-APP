@@ -32,7 +32,7 @@ export default function BulkPage() {
     <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
       <section className="space-y-8">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.8fr)] lg:items-end">
-          <div className="space-y-4">
+          <div className="animate-fade-in-up space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
               Bulk &amp; print
             </p>

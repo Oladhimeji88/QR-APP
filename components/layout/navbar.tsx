@@ -20,13 +20,8 @@ export function Navbar() {
           <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-white shadow-[0_18px_40px_rgba(63,122,99,0.28)]">
             <BrandGlyph className="size-6" />
           </span>
-          <span>
-            <span className="block text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-              Local QR Studio
-            </span>
-            <span className="block text-lg font-semibold tracking-tight text-[color:var(--foreground)]">
-              {APP_NAME}
-            </span>
+          <span className="block text-lg font-semibold tracking-tight text-[color:var(--foreground)]">
+            {APP_NAME}
           </span>
         </Link>
 
