@@ -116,7 +116,15 @@ export function embedLogoInSvg(svgString: string, logoDataUrl: string): string {
     `preserveAspectRatio="xMidYMid meet" href="${logoDataUrl}" ` +
     `xlink:href="${logoDataUrl}"/>`;
 
-  return svgString.replace(/<\/svg>\s*$/, `${overlay}</svg>`);
+  // Ensure the xlink namespace is declared so xlink:href resolves in strict renderers.
+  const withNamespace = svgString.includes("xmlns:xlink")
+    ? svgString
+    : svgString.replace(
+        "<svg ",
+        '<svg xmlns:xlink="http://www.w3.org/1999/xlink" ',
+      );
+
+  return withNamespace.replace(/<\/svg>\s*$/, `${overlay}</svg>`);
 }
 
 /**

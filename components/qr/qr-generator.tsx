@@ -40,7 +40,13 @@ export function QrGenerator() {
       const parsed = JSON.parse(rawHistory) as QRHistoryItem[];
 
       if (Array.isArray(parsed)) {
-        setHistoryItems(parsed);
+        // Backfill the logo field for history saved before it existed.
+        setHistoryItems(
+          parsed.map((item) => ({
+            ...item,
+            values: { ...DEFAULT_FORM_VALUES, ...item.values },
+          })),
+        );
       }
     } catch (error) {
       console.error("Unable to restore recent QR history.", error);
