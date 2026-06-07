@@ -3,6 +3,7 @@
 import { useCallback, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  ArrowLeft,
   Paintbrush,
   RefreshCcw,
   Sparkles,
@@ -10,7 +11,6 @@ import {
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { QrTypeSelector } from "@/components/qr/qr-type-selector";
 import { RecentHistory } from "@/components/qr/recent-history";
 import { Button } from "@/components/ui/button";
 import { FieldHint } from "@/components/ui/field-hint";
@@ -20,28 +20,32 @@ import { SectionCard } from "@/components/ui/section-card";
 import { Textarea } from "@/components/ui/textarea";
 import { ValidationMessage } from "@/components/ui/validation-message";
 import {
+  CONTENT_TYPE_LABELS,
   DEFAULT_FORM_VALUES,
   EXAMPLE_INPUTS,
   QR_MARGIN_RANGE,
   QR_SIZE_PRESETS,
   QR_SIZE_RANGE,
-  QR_THEME_PRESETS,
   WIFI_ENCRYPTION_OPTIONS,
 } from "@/lib/constants";
 import { qrFormSchema, sanitizeFormValues } from "@/lib/validation";
 import { cn } from "@/lib/utils";
-import type { QRFormValues, QRHistoryItem } from "@/types/qr";
+import type { QRFormValues, QRHistoryItem, QRType } from "@/types/qr";
 
 interface QrFormProps {
+  initialType: QRType;
   historyItems: QRHistoryItem[];
   onClearHistory: () => void;
+  onChangeFormat: () => void;
   onPreviewChange: (values: QRFormValues) => void;
   onGenerate: (values: QRFormValues) => void;
 }
 
 export function QrForm({
+  initialType,
   historyItems,
   onClearHistory,
+  onChangeFormat,
   onPreviewChange,
   onGenerate,
 }: QrFormProps) {
@@ -54,7 +58,7 @@ export function QrForm({
     setValue,
   } = useForm<QRFormValues>({
     resolver: zodResolver(qrFormSchema),
-    defaultValues: DEFAULT_FORM_VALUES,
+    defaultValues: { ...DEFAULT_FORM_VALUES, type: initialType },
     mode: "onChange",
     reValidateMode: "onChange",
   });
@@ -65,13 +69,6 @@ export function QrForm({
   const wifiEncryption =
     useWatch({ control, name: "wifiEncryption" }) ??
     DEFAULT_FORM_VALUES.wifiEncryption;
-
-  const activeThemeId =
-    QR_THEME_PRESETS.find(
-      (preset) =>
-        preset.foreground.toLowerCase() === values.foreground.toLowerCase() &&
-        preset.background.toLowerCase() === values.background.toLowerCase(),
-    )?.id ?? null;
 
   const activeSizeId =
     QR_SIZE_PRESETS.find((preset) => preset.size === values.size)?.id ?? null;
@@ -99,36 +96,22 @@ export function QrForm({
     reset(nextValues);
   }
 
-  function applyTheme(themeId: string) {
-    const theme = QR_THEME_PRESETS.find((preset) => preset.id === themeId);
-
-    if (!theme) {
-      return;
-    }
-
-    setValue("foreground", theme.foreground, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
-    setValue("background", theme.background, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
-  }
-
   return (
     <form className="space-y-6" onSubmit={handleFormSubmit}>
-      <SectionCard
-        title="Choose your format"
-        description="Switch between plain text, links, messaging actions, and Wi-Fi access."
-      >
-        <QrTypeSelector
-          value={selectedType}
-          onChange={(type) =>
-            setValue("type", type, { shouldValidate: true, shouldDirty: true })
-          }
-        />
-      </SectionCard>
+      <div className="flex flex-wrap items-center justify-between gap-3 border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-4">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
+            Format
+          </span>
+          <span className="border border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] px-3 py-1 text-sm font-semibold text-[color:var(--accent-strong)]">
+            {CONTENT_TYPE_LABELS[selectedType]}
+          </span>
+        </div>
+        <Button type="button" variant="ghost" size="sm" onClick={onChangeFormat}>
+          <ArrowLeft className="size-4" />
+          Change format
+        </Button>
+      </div>
 
       <SectionCard
         title="Content"
@@ -358,42 +341,6 @@ export function QrForm({
                       : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
                   )}
                 >
-                  <p className="text-sm font-semibold text-[color:var(--foreground)]">
-                    {preset.label}
-                  </p>
-                  <p className="mt-1 text-sm leading-6 text-[color:var(--muted-foreground)]">
-                    {preset.description}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <Label>Theme preset</Label>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {QR_THEME_PRESETS.map((preset) => (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => applyTheme(preset.id)}
-                  className={cn(
-                    "rounded-[22px] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
-                    activeThemeId === preset.id
-                      ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(63,122,99,0.18),0_18px_40px_rgba(63,122,99,0.14)]"
-                      : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
-                  )}
-                >
-                  <div className="mb-3 flex items-center gap-2">
-                    <span
-                      className="inline-flex size-5 rounded-full border border-black/10"
-                      style={{ backgroundColor: preset.foreground }}
-                    />
-                    <span
-                      className="inline-flex size-5 rounded-full border border-black/10"
-                      style={{ backgroundColor: preset.background }}
-                    />
-                  </div>
                   <p className="text-sm font-semibold text-[color:var(--foreground)]">
                     {preset.label}
                   </p>

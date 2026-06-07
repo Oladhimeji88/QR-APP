@@ -33,8 +33,12 @@
   --font-mono: var(--font-mono);
 }
 
-* {
+*,
+*::before,
+*::after {
   border-color: var(--border);
+  /* Square corners everywhere — no border radius. */
+  border-radius: 0 !important;
 }
 
 html {
@@ -56,12 +60,92 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 input[type="color"]::-webkit-color-swatch {
   border: none;
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 input[type="color"]::-moz-color-swatch {
   border: none;
-  border-radius: 16px;
+  border-radius: 0;
+}
+
+/* ---- Animations ---- */
+@keyframes pr-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pr-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pr-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pr-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: pr-fade-in 0.5s ease both;
+}
+
+.animate-fade-in-up {
+  animation: pr-fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-scale-in {
+  animation: pr-scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-in {
+  animation: pr-slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hover-lift {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ---- Bulk print sheet ---- */
