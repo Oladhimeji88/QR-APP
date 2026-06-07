@@ -116,18 +116,18 @@ export const QR_THEME_PRESETS: QRThemePreset[] = [
     background: "#ffffff",
   },
   {
-    id: "dark",
-    label: "Dark",
-    description: "Slate contrast",
-    foreground: "#e2e8f0",
-    background: "#0f172a",
+    id: "forest",
+    label: "Forest",
+    description: "Deep green on white",
+    foreground: "#246349",
+    background: "#ffffff",
   },
   {
-    id: "brand-blue",
-    label: "Brand Blue",
-    description: "Blue accent system",
-    foreground: "#0f4c81",
-    background: "#f5fbff",
+    id: "mint",
+    label: "Mint",
+    description: "Green on soft mint",
+    foreground: "#0f2a1e",
+    background: "#eafaf2",
   },
 ];
 

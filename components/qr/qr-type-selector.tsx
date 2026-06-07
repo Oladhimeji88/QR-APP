@@ -53,8 +53,8 @@ export function QrTypeSelector({ value, onChange }: QrTypeSelectorProps) {
               className={cn(
                 "mb-4 inline-flex size-11 items-center justify-center rounded-2xl border",
                 isActive
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                  : "border-[color:var(--border)] bg-white/70 text-[color:var(--muted-foreground)] dark:bg-white/5",
+                  ? "border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]"
+                  : "border-[color:var(--border)] bg-white/70 text-[color:var(--muted-foreground)]",
               )}
             >
               <Icon className="size-5" />

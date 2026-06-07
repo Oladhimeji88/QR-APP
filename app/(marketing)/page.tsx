@@ -100,7 +100,7 @@ export default function MarketingPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-10">
       {/* Hero */}
-      <section className="relative grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] px-6 py-12 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center dark:bg-[linear-gradient(135deg,rgba(8,16,24,0.82),rgba(8,16,24,0.58))]">
+      <section className="relative grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 py-12 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
             <span className="relative flex size-2">
@@ -152,7 +152,7 @@ export default function MarketingPage() {
 
         <div className="relative">
           <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.28),transparent_60%)] blur-2xl" />
-          <Card className="relative overflow-hidden border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(246,248,251,0.78))] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(10,17,27,0.92),rgba(10,17,27,0.72))]">
+          <Card className="relative overflow-hidden border-[color:var(--border)] bg-[linear-gradient(180deg,#ffffff,rgba(240,248,244,0.85))]">
             <CardHeader>
               <div className="flex items-center justify-between gap-4">
                 <div>
@@ -161,7 +161,7 @@ export default function MarketingPage() {
                     Live preview, validated inputs, export-ready downloads.
                   </CardDescription>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-tint)] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-strong)]">
                   <ShieldCheck className="size-3.5" />
                   Local only
                 </span>

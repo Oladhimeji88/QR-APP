@@ -321,7 +321,7 @@ export function BulkGenerator() {
             </Button>
 
             {headerError ? (
-              <p className="flex items-start gap-2 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-700 dark:text-amber-300">
+              <p className="flex items-start gap-2 rounded-2xl border border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] p-3 text-sm text-[color:var(--accent-stronger)]">
                 <AlertTriangle className="mt-0.5 size-4 shrink-0" />
                 {headerError}
               </p>
@@ -379,14 +379,14 @@ export function BulkGenerator() {
                 </button>
               ))}
               {truncated ? (
-                <span className="ml-auto text-xs text-amber-600 dark:text-amber-400">
+                <span className="ml-auto text-xs text-[color:var(--accent-stronger)]">
                   Limited to the first {BULK_MAX_ROWS} rows.
                 </span>
               ) : null}
             </div>
 
             <div className="overflow-hidden rounded-[24px] border border-[color:var(--border)]">
-              <div className="bulk-print-area bg-white p-8 text-slate-900">
+              <div className="bulk-print-area bg-white p-8 text-[#0f2a1e]">
                 <div
                   className="grid gap-8"
                   style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
@@ -403,7 +403,7 @@ export function BulkGenerator() {
                         alt={`QR code for ${row.label}`}
                         className="h-auto w-full max-w-[180px]"
                       />
-                      <p className="w-full truncate text-center text-xs font-medium text-slate-700">
+                      <p className="w-full truncate text-center text-xs font-medium text-[#4c6b5d]">
                         {row.label}
                       </p>
                     </div>

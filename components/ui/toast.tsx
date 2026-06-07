@@ -8,10 +8,10 @@ import type { ToastMessage } from "@/types/qr";
 
 const toneStyles = {
   success:
-    "border-emerald-500/25 bg-emerald-500/10 text-emerald-950 dark:text-emerald-50",
+    "border-[color:var(--accent-strong)]/30 bg-[color:var(--surface-tint)] text-[color:var(--accent-stronger)]",
   error:
-    "border-rose-500/25 bg-rose-500/10 text-rose-950 dark:text-rose-50",
-  info: "border-sky-500/25 bg-sky-500/10 text-sky-950 dark:text-sky-50",
+    "border-[color:var(--accent-strong)]/45 bg-[color:var(--surface-tint)] text-[color:var(--foreground)]",
+  info: "border-[color:var(--border-strong)] bg-[color:var(--surface-tint)] text-[color:var(--accent-stronger)]",
 } as const;
 
 const toneIcons = {
@@ -55,7 +55,7 @@ export function ToastViewport({ toast, onDismiss }: ToastViewportProps) {
         aria-live="polite"
       >
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex size-9 items-center justify-center rounded-2xl bg-white/70 text-current dark:bg-white/10">
+          <span className="mt-0.5 inline-flex size-9 items-center justify-center rounded-2xl bg-white/70 text-current">
             <Icon className="size-4.5" />
           </span>
           <div className="min-w-0 flex-1">
@@ -67,7 +67,7 @@ export function ToastViewport({ toast, onDismiss }: ToastViewportProps) {
           <button
             type="button"
             onClick={onDismiss}
-            className="rounded-full p-1 text-current/80 transition hover:bg-white/40 hover:text-current dark:hover:bg-white/10"
+            className="rounded-full p-1 text-current/80 transition hover:bg-white/40 hover:text-current"
             aria-label="Dismiss notification"
           >
             <X className="size-4" />

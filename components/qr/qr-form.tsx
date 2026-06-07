@@ -290,7 +290,7 @@ export function QrForm({
                   <Label htmlFor="wifiEncryption">Encryption</Label>
                   <select
                     id="wifiEncryption"
-                    className="flex h-12 w-full rounded-2xl border border-[color:var(--border)] bg-white/80 px-4 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--border-strong)] focus:ring-4 focus:ring-[color:var(--ring-soft)] dark:bg-white/5"
+                    className="flex h-12 w-full rounded-2xl border border-[color:var(--border)] bg-white/80 px-4 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--border-strong)] focus:ring-4 focus:ring-[color:var(--ring-soft)]"
                     {...register("wifiEncryption")}
                   >
                     {WIFI_ENCRYPTION_OPTIONS.map((option) => (

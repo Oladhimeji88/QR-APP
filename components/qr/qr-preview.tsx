@@ -156,13 +156,13 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                 <div className="space-y-5">
                   <div className="mx-auto flex max-w-sm items-center justify-between rounded-full border border-[color:var(--border)] bg-[color:var(--background)]/90 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
                     <span>{previewData.typeLabel}</span>
-                    <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300">
+                    <span className="flex items-center gap-1.5 text-[color:var(--accent-strong)]">
                       <CheckCircle2 className="size-3.5" />
                       Ready
                     </span>
                   </div>
 
-                  <div className="mx-auto grid max-w-sm place-items-center rounded-[32px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(246,248,251,0.84))] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(17,24,39,0.92),rgba(10,15,26,0.82))]">
+                  <div className="mx-auto grid max-w-sm place-items-center rounded-[32px] border border-[color:var(--border)] bg-[linear-gradient(180deg,#ffffff,rgba(240,248,244,0.85))] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
                     <img
                       src={previewData.pngDataUrl}
                       alt={`${previewData.typeLabel} QR code preview`}
@@ -208,9 +208,9 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                   </div>
                 </div>
               ) : preview.status === "error" ? (
-                <div className="grid min-h-[420px] place-items-center rounded-[28px] border border-dashed border-rose-300 bg-rose-50/80 p-8 text-center dark:bg-rose-950/10">
+                <div className="grid min-h-[420px] place-items-center rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-[color:var(--surface)]/80 p-8 text-center">
                   <div className="max-w-sm space-y-4">
-                    <span className="mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-rose-500/10 text-rose-600">
+                    <span className="mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]">
                       <AlertTriangle className="size-7" />
                     </span>
                     <div className="space-y-2">
