@@ -231,7 +231,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                     </span>
                     <div className="space-y-2">
                       <h3 className="text-xl font-semibold text-[color:var(--foreground)]">
-                        Welcome to QR Forge
+                        Welcome to pubbleRadar
                       </h3>
                       <p className="text-sm leading-6 text-[color:var(--muted-foreground)]">
                         {preview.message}

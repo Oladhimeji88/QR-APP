@@ -100,7 +100,7 @@ export function buildFilenameStem(values: QRFormValues) {
   const summarySlug = slugifyFilename(buildQrSummary(values));
   const typeSlug = slugifyFilename(CONTENT_TYPE_LABELS[values.type]);
 
-  return `qr-forge-${typeSlug}${summarySlug ? `-${summarySlug}` : ""}`;
+  return `pubbleradar-${typeSlug}${summarySlug ? `-${summarySlug}` : ""}`;
 }
 
 export async function generateQrPngDataUrl(

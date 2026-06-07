@@ -6,7 +6,7 @@ import type {
   WifiEncryption,
 } from "@/types/qr";
 
-export const APP_NAME = "QR Forge";
+export const APP_NAME = "pubbleRadar";
 
 export const APP_DESCRIPTION =
   "Generate, preview, and download clean QR codes for text, links, contact actions, and Wi-Fi in seconds.";
@@ -136,23 +136,23 @@ export const EXAMPLE_INPUTS: Record<QRType, Partial<QRFormValues>> = {
     text: "Bring this code to the front desk for your visitor pass.",
   },
   url: {
-    url: "https://qrforge.dev/demo?ref=launch",
+    url: "https://pubbleradar.dev/demo?ref=launch",
   },
   email: {
-    email: "hello@qrforge.dev",
-    emailSubject: "QR Forge demo request",
-    emailBody: "Hi team, I would love a quick walkthrough of QR Forge.",
+    email: "hello@pubbleradar.dev",
+    emailSubject: "pubbleRadar demo request",
+    emailBody: "Hi team, I would love a quick walkthrough of pubbleRadar.",
   },
   phone: {
     phone: "+14155550123",
   },
   sms: {
     smsNumber: "+14155550123",
-    smsMessage: "Hi! I am interested in the QR Forge product demo.",
+    smsMessage: "Hi! I am interested in the pubbleRadar product demo.",
   },
   wifi: {
-    wifiSsid: "QR Forge Guest",
-    wifiPassword: "ForgeGuest2026",
+    wifiSsid: "pubbleRadar Guest",
+    wifiPassword: "RadarGuest2026",
     wifiEncryption: "WPA",
     wifiHidden: false,
   },
@@ -183,4 +183,4 @@ export const DEFAULT_SCAN_TIP =
 
 export const MAX_SUMMARY_LENGTH = 72;
 export const MAX_HISTORY_ITEMS = 6;
-export const RECENT_HISTORY_STORAGE_KEY = "qr-forge-history";
+export const RECENT_HISTORY_STORAGE_KEY = "pubbleradar-history";

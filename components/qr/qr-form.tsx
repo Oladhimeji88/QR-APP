@@ -193,7 +193,7 @@ export function QrForm({
                 <Label htmlFor="emailSubject">Subject</Label>
                 <Input
                   id="emailSubject"
-                  placeholder="Welcome to QR Forge"
+                  placeholder="Welcome to pubbleRadar"
                   aria-invalid={Boolean(errors.emailSubject)}
                   {...register("emailSubject")}
                 />

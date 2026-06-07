@@ -57,7 +57,7 @@ export function DownloadButtons({ assets, values, onToast }: DownloadButtonsProp
 
   function buildFileName(extension: "png" | "svg") {
     if (!values) {
-      return `qr-forge-${formatTimestamp()}.${extension}`;
+      return `pubbleradar-${formatTimestamp()}.${extension}`;
     }
 
     return `${buildFilenameStem(values)}-${formatTimestamp()}.${extension}`;

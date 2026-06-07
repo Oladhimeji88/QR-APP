@@ -1,6 +1,6 @@
-# QR Forge
+# pubbleRadar
 
-QR Forge is a production-ready QR code generator built with Next.js App Router. It supports text, URLs, email, phone, SMS, and Wi-Fi QR codes, generates previews instantly, and downloads high-quality PNG or SVG files without using third-party QR APIs.
+pubbleRadar is a production-ready QR code generator built with Next.js App Router. It supports text, URLs, email, phone, SMS, and Wi-Fi QR codes, generates previews instantly, and downloads high-quality PNG or SVG files without using third-party QR APIs.
 
 ## Features
 

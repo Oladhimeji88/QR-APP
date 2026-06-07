@@ -1,10 +1,18 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  Check,
   Download,
+  Link2,
+  Mail,
+  MessageSquare,
+  Phone,
+  ScanLine,
   ShieldCheck,
   Sparkles,
+  Type,
   Wifi,
+  Zap,
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -17,6 +25,13 @@ import {
 } from "@/components/ui/card";
 import { APP_DESCRIPTION } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+const stats = [
+  { value: "6", label: "Content types" },
+  { value: "2", label: "Export formats" },
+  { value: "100%", label: "Local rendering" },
+  { value: "0", label: "Third-party APIs" },
+];
 
 const features = [
   {
@@ -45,21 +60,64 @@ const features = [
   },
 ];
 
+const contentTypes = [
+  { icon: Type, label: "Text", description: "Notes & messages" },
+  { icon: Link2, label: "URL", description: "Links & pages" },
+  { icon: Mail, label: "Email", description: "Pre-filled mail" },
+  { icon: Phone, label: "Phone", description: "Tap to call" },
+  { icon: MessageSquare, label: "SMS", description: "Draft messages" },
+  { icon: Wifi, label: "Wi-Fi", description: "One-scan join" },
+];
+
+const steps = [
+  {
+    step: "01",
+    title: "Pick a content type",
+    description:
+      "Choose from text, URL, email, phone, SMS, or Wi-Fi. Each type gets a tailored, validated form.",
+  },
+  {
+    step: "02",
+    title: "Customize and preview",
+    description:
+      "Adjust size, margin, and colors while a live preview updates instantly to match your output.",
+  },
+  {
+    step: "03",
+    title: "Download and ship",
+    description:
+      "Export a crisp PNG or scalable SVG with a clean filename, ready for product, print, or signage.",
+  },
+];
+
+const trustPoints = [
+  "No sign-up required",
+  "Type-safe with Zod",
+  "Works offline",
+];
+
 export default function MarketingPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
-      <section className="grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] px-6 py-10 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center dark:bg-[linear-gradient(135deg,rgba(8,16,24,0.82),rgba(8,16,24,0.58))]">
+    <div className="mx-auto max-w-7xl px-6 pb-24 pt-10">
+      {/* Hero */}
+      <section className="relative grid gap-10 overflow-hidden rounded-[40px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] px-6 py-12 shadow-[0_24px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center dark:bg-[linear-gradient(135deg,rgba(8,16,24,0.82),rgba(8,16,24,0.58))]">
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-            <Sparkles className="size-4 text-[color:var(--accent-strong)]" />
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[color:var(--accent-strong)] opacity-60" />
+              <span className="relative inline-flex size-2 rounded-full bg-[color:var(--accent-strong)]" />
+            </span>
             Production-ready QR generator
           </div>
 
           <div className="space-y-5">
-            <h1 className="max-w-2xl text-balance text-5xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-6xl">
-              Create QR Codes Instantly
+            <h1 className="max-w-2xl text-balance text-5xl font-semibold leading-[1.05] tracking-tight text-[color:var(--foreground)] sm:text-6xl">
+              Create QR codes{" "}
+              <span className="bg-[linear-gradient(120deg,var(--accent-strong),var(--accent-soft))] bg-clip-text text-transparent">
+                instantly
+              </span>
             </h1>
-            <p className="max-w-2xl text-lg leading-8 text-[color:var(--muted-foreground)]">
+            <p className="max-w-xl text-lg leading-8 text-[color:var(--muted-foreground)]">
               {APP_DESCRIPTION}
             </p>
           </div>
@@ -76,6 +134,20 @@ export default function MarketingPage() {
               Explore features
             </Link>
           </div>
+
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+            {trustPoints.map((point) => (
+              <li
+                key={point}
+                className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--muted-foreground)]"
+              >
+                <span className="grid size-5 place-items-center rounded-full bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]">
+                  <Check className="size-3.5" />
+                </span>
+                {point}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="relative">
@@ -84,12 +156,13 @@ export default function MarketingPage() {
             <CardHeader>
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <CardTitle>QR Forge Studio</CardTitle>
+                  <CardTitle>pubbleRadar Studio</CardTitle>
                   <CardDescription>
                     Live preview, validated inputs, export-ready downloads.
                   </CardDescription>
                 </div>
-                <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
+                  <ShieldCheck className="size-3.5" />
                   Local only
                 </span>
               </div>
@@ -97,29 +170,38 @@ export default function MarketingPage() {
             <CardContent className="space-y-6">
               <div className="grid gap-4 rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] p-5">
                 <div className="flex items-center justify-between rounded-full border border-[color:var(--border)] bg-[color:var(--background)]/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-                  <span>Wi-Fi QR</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Wifi className="size-3.5" /> Wi-Fi QR
+                  </span>
                   <span>Ready to share</span>
                 </div>
-                <div className="mx-auto rounded-[30px] bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.12)]">
+                <div className="group relative mx-auto rounded-[30px] bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.12)]">
                   <img
                     src="/icons/scan-grid.svg"
                     alt="Decorative QR grid preview"
                     className="h-auto w-[240px]"
                   />
+                  <span className="pointer-events-none absolute inset-x-5 top-5 h-[2px] animate-[pulse_2s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,var(--accent-strong),transparent)]" />
                 </div>
               </div>
               <div className="grid gap-3 text-sm text-[color:var(--muted-foreground)]">
                 <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
                   <span>Output formats</span>
-                  <span className="font-medium text-[color:var(--foreground)]">PNG + SVG</span>
+                  <span className="font-medium text-[color:var(--foreground)]">
+                    PNG + SVG
+                  </span>
                 </div>
                 <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
                   <span>Validation</span>
-                  <span className="font-medium text-[color:var(--foreground)]">Zod + RHF</span>
+                  <span className="font-medium text-[color:var(--foreground)]">
+                    Zod + RHF
+                  </span>
                 </div>
                 <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
                   <span>Generation</span>
-                  <span className="font-medium text-[color:var(--foreground)]">Local + server route</span>
+                  <span className="font-medium text-[color:var(--foreground)]">
+                    Local + server route
+                  </span>
                 </div>
               </div>
             </CardContent>
@@ -127,7 +209,58 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section id="features" className="mt-16 space-y-6">
+      {/* Stats */}
+      <section className="mt-6">
+        <dl className="grid grid-cols-2 gap-4 rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-8 backdrop-blur sm:grid-cols-4 sm:px-10">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center sm:text-left">
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+                {stat.value}
+              </dd>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--muted-foreground)]">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Supported content types */}
+      <section className="mt-20 space-y-8">
+        <div className="flex flex-col gap-3 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+            One tool, every format
+          </p>
+          <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+            Encode anything your audience needs to scan
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {contentTypes.map((type) => (
+            <div
+              key={type.label}
+              className="group flex flex-col items-center gap-3 rounded-3xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]"
+            >
+              <span className="grid size-12 place-items-center rounded-2xl bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                <type.icon className="size-6" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-[color:var(--foreground)]">
+                  {type.label}
+                </p>
+                <p className="text-xs text-[color:var(--muted-foreground)]">
+                  {type.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="mt-20 space-y-8">
         <div className="max-w-2xl space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             Why teams use it
@@ -136,16 +269,20 @@ export default function MarketingPage() {
             Built like a serious product, not a throwaway demo
           </h2>
           <p className="text-lg leading-8 text-[color:var(--muted-foreground)]">
-            QR Forge combines a premium interface with type-safe validation, local QR rendering,
-            and a flexible architecture that can grow into saved history, analytics, auth, and brand assets.
+            pubbleRadar combines a premium interface with type-safe validation, local
+            QR rendering, and a flexible architecture that can grow into saved
+            history, analytics, auth, and brand assets.
           </p>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {features.map((feature) => (
-            <Card key={feature.title} className="h-full">
+            <Card
+              key={feature.title}
+              className="group h-full transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_90px_rgba(15,23,42,0.12)]"
+            >
               <CardHeader>
-                <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(234,88,12,0.18))] text-[color:var(--accent-strong)]">
+                <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(234,88,12,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
                   <feature.icon className="size-6" />
                 </span>
                 <CardTitle className="pt-2">{feature.title}</CardTitle>
@@ -156,26 +293,71 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section className="mt-16 rounded-[36px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(18,115,96,0.12),rgba(234,88,12,0.08))] px-6 py-10 sm:px-10">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      {/* How it works */}
+      <section className="mt-20 space-y-8">
+        <div className="max-w-2xl space-y-3">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+            How it works
+          </p>
+          <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+            From raw input to a clean download in three steps
+          </h2>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {steps.map((item, index) => (
+            <div key={item.step} className="relative">
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-3xl font-semibold text-[color:var(--accent-strong)]">
+                      {item.step}
+                    </span>
+                    {index < steps.length - 1 && (
+                      <span className="hidden flex-1 border-t border-dashed border-[color:var(--border-strong)] md:block" />
+                    )}
+                  </div>
+                  <CardTitle className="pt-2">{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="mt-20 overflow-hidden rounded-[36px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(18,115,96,0.12),rgba(234,88,12,0.08))] px-6 py-12 sm:px-10">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+            <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+              <Zap className="size-4" />
               Ready to build
             </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)]">
+            <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
               Move from raw text to clean download in seconds
             </h2>
             <p className="text-lg leading-8 text-[color:var(--muted-foreground)]">
-              Start with the generator, tweak size and colors, and export a code you can use in a product, menu, flyer, or onboarding flow.
+              Start with the generator, tweak size and colors, and export a code
+              you can use in a product, menu, flyer, or onboarding flow.
             </p>
           </div>
-          <Link
-            href="/generate"
-            className={cn(buttonVariants({ size: "lg" }), "w-full justify-center sm:w-auto")}
-          >
-            Open generator
-            <ArrowRight className="size-5" />
-          </Link>
+          <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row lg:flex-col">
+            <Link
+              href="/generate"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "w-full justify-center sm:w-auto",
+              )}
+            >
+              Open generator
+              <ArrowRight className="size-5" />
+            </Link>
+            <span className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[color:var(--muted-foreground)]">
+              <ScanLine className="size-4 text-[color:var(--accent-strong)]" />
+              No account needed
+            </span>
+          </div>
         </div>
       </section>
     </div>
