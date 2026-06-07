@@ -15,7 +15,7 @@ export function Footer() {
     <footer className="border-t border-[color:var(--border)] bg-[color:var(--background)]/80">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-[color:var(--foreground)] shadow-[0_12px_28px_rgba(99,212,113,0.24)]">
+          <span className="grid size-10 place-items-center rounded-lg bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-[color:var(--foreground)] shadow-[0_12px_28px_rgba(99,212,113,0.24)]">
             <BrandGlyph className="size-5" />
           </span>
           <div>

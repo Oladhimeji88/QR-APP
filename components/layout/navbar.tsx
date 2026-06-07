@@ -17,7 +17,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-[color:var(--border)] bg-[color:var(--background)]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-[color:var(--foreground)] shadow-[0_18px_40px_rgba(99,212,113,0.28)]">
+          <span className="grid size-11 place-items-center rounded-lg bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-[color:var(--foreground)] shadow-[0_18px_40px_rgba(99,212,113,0.28)]">
             <BrandGlyph className="size-6" />
           </span>
           <span className="block text-lg font-semibold tracking-tight text-[color:var(--foreground)]">
