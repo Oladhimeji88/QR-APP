@@ -26,12 +26,13 @@ const iconMap: Record<QRType, ComponentType<{ className?: string }>> = {
 interface QrTypeSelectorProps {
   value: QRType;
   onChange: (type: QRType) => void;
+  animateIn?: boolean;
 }
 
-export function QrTypeSelector({ value, onChange }: QrTypeSelectorProps) {
+export function QrTypeSelector({ value, onChange, animateIn = false }: QrTypeSelectorProps) {
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" role="radiogroup" aria-label="QR content type">
-      {QR_TYPE_OPTIONS.map((option) => {
+      {QR_TYPE_OPTIONS.map((option, index) => {
         const Icon = iconMap[option.value];
         const isActive = option.value === value;
 
@@ -42,11 +43,13 @@ export function QrTypeSelector({ value, onChange }: QrTypeSelectorProps) {
             role="radio"
             aria-checked={isActive}
             onClick={() => onChange(option.value)}
+            style={animateIn ? { animationDelay: `${index * 60}ms` } : undefined}
             className={cn(
-              "group rounded-[24px] border p-4 text-left transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
+              "group border p-4 text-left transition duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
+              animateIn && "animate-fade-in-up",
               isActive
-                ? "border-transparent bg-[linear-gradient(180deg,var(--surface-tint),transparent)] shadow-[inset_0_0_0_1px_rgba(63,122,99,0.18),0_18px_40px_rgba(63,122,99,0.14)]"
-                : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)]",
+                ? "border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] shadow-[0_18px_40px_rgba(47,122,91,0.16)]"
+                : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)] hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)]",
             )}
           >
             <span

@@ -2,6 +2,7 @@
 
 import { startTransition, useEffect, useState } from "react";
 
+import { FormatChooser } from "@/components/qr/format-chooser";
 import { QrForm } from "@/components/qr/qr-form";
 import { QrPreview } from "@/components/qr/qr-preview";
 import { ToastViewport } from "@/components/ui/toast";
@@ -14,10 +15,15 @@ import { buildQrPayload, buildQrSummary } from "@/lib/qr";
 import type {
   QRFormValues,
   QRHistoryItem,
+  QRType,
   ToastMessage,
 } from "@/types/qr";
 
+type Step = "format" | "create";
+
 export function QrGenerator() {
+  const [step, setStep] = useState<Step>("format");
+  const [selectedType, setSelectedType] = useState<QRType>(DEFAULT_FORM_VALUES.type);
   const [previewValues, setPreviewValues] = useState<QRFormValues>(DEFAULT_FORM_VALUES);
   const [refreshNonce, setRefreshNonce] = useState(0);
   const [historyItems, setHistoryItems] = useState<QRHistoryItem[]>([]);
