@@ -58,12 +58,12 @@ export const qrFormSchema = z
     wifiEncryption: z.enum(WIFI_ENCRYPTIONS),
     wifiHidden: z.boolean(),
     size: z
-      .number({ invalid_type_error: "Choose a QR size." })
+      .number()
       .int("QR size must be a whole number.")
       .min(QR_SIZE_RANGE.min)
       .max(QR_SIZE_RANGE.max),
     margin: z
-      .number({ invalid_type_error: "Choose a quiet-zone margin." })
+      .number()
       .int("Margin must be a whole number.")
       .min(QR_MARGIN_RANGE.min)
       .max(QR_MARGIN_RANGE.max),

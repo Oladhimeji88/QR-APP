@@ -137,7 +137,8 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
-  const isUrlType = values.type === "url" && preview.data?.payload;
+  const previewData = preview.data;
+  const isUrlType = values.type === "url" && previewData?.payload;
 
   return (
     <div className="space-y-6">
@@ -151,10 +152,10 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
             <div className="absolute inset-x-8 top-8 h-px bg-[linear-gradient(90deg,transparent,rgba(18,115,96,0.28),transparent)]" />
 
             <div className="relative">
-              {preview.data ? (
+              {previewData ? (
                 <div className="space-y-5">
                   <div className="mx-auto flex max-w-sm items-center justify-between rounded-full border border-[color:var(--border)] bg-[color:var(--background)]/90 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-                    <span>{preview.data.typeLabel}</span>
+                    <span>{previewData.typeLabel}</span>
                     <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300">
                       <CheckCircle2 className="size-3.5" />
                       Ready
@@ -163,8 +164,8 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
 
                   <div className="mx-auto grid max-w-sm place-items-center rounded-[32px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(246,248,251,0.84))] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(17,24,39,0.92),rgba(10,15,26,0.82))]">
                     <img
-                      src={preview.data.pngDataUrl}
-                      alt={`${preview.data.typeLabel} QR code preview`}
+                      src={previewData.pngDataUrl}
+                      alt={`${previewData.typeLabel} QR code preview`}
                       className={cn(
                         "h-auto w-full max-w-[320px] rounded-2xl",
                         preview.status === "loading" ? "opacity-80" : "",
@@ -178,17 +179,17 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                         Encoded summary
                       </p>
                       <p className="text-base font-medium text-[color:var(--foreground)]">
-                        {preview.data.summary}
+                        {previewData.summary}
                       </p>
                       <p className="font-mono text-xs leading-6 text-[color:var(--muted-foreground)]">
-                        {preview.data.payload}
+                        {previewData.payload}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => void handleCopyPayload(preview.data.payload)}
+                        onClick={() => void handleCopyPayload(previewData.payload)}
                       >
                         <Copy className="size-4" />
                         Copy payload
@@ -197,7 +198,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleOpenLink(preview.data.payload)}
+                          onClick={() => handleOpenLink(previewData.payload)}
                         >
                           <ExternalLink className="size-4" />
                           Open link
@@ -253,7 +254,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
           </div>
 
           <DownloadButtons
-            assets={preview.status === "ready" || preview.status === "loading" ? preview.data : null}
+            assets={preview.status === "ready" || preview.status === "loading" ? previewData : null}
             values={preview.status === "ready" || preview.status === "loading" ? values : null}
             onToast={onToast}
           />

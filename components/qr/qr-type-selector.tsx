@@ -41,7 +41,6 @@ export function QrTypeSelector({ value, onChange }: QrTypeSelectorProps) {
             type="button"
             role="radio"
             aria-checked={isActive}
-            aria-pressed={isActive}
             onClick={() => onChange(option.value)}
             className={cn(
               "group rounded-[24px] border p-4 text-left transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
