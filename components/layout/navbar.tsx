@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles, QrCode } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
+import { BrandGlyph } from "@/components/layout/brand-glyph";
 import { buttonVariants } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex items-center gap-3">
           <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-strong),var(--accent-soft))] text-white shadow-[0_18px_40px_rgba(63,122,99,0.28)]">
-            <QrCode className="size-5" />
+            <BrandGlyph className="size-6" />
           </span>
           <span>
             <span className="block text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
