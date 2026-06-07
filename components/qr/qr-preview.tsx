@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useEffectEvent, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
   Copy,
   ExternalLink,
   ScanLine,
-  Sparkles,
 } from "lucide-react";
 
 import { DownloadButtons } from "@/components/qr/download-buttons";
@@ -70,7 +69,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
     return () => window.clearTimeout(timeout);
   }, [values]);
 
-  const runPreview = useEffectEvent(async (sourceValues: QRFormValues) => {
+  const runPreview = useCallback(async (sourceValues: QRFormValues) => {
     const sanitized = sanitizeFormValues(sourceValues);
     const validation = qrFormSchema.safeParse(sanitized);
 
@@ -106,7 +105,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
           "We could not render this QR code. Double-check the input and try again.",
       });
     }
-  });
+  }, []);
 
   useEffect(() => {
     void runPreview(debouncedValues);

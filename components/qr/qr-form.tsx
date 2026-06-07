@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent } from "react";
+import { useCallback, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Paintbrush,
@@ -76,9 +76,9 @@ export function QrForm({
   const activeSizeId =
     QR_SIZE_PRESETS.find((preset) => preset.size === values.size)?.id ?? null;
 
-  const emitPreviewChange = useEffectEvent((nextValues: QRFormValues) => {
+  const emitPreviewChange = useCallback((nextValues: QRFormValues) => {
     onPreviewChange(nextValues);
-  });
+  }, [onPreviewChange]);
 
   useEffect(() => {
     emitPreviewChange(values);
