@@ -26,30 +26,69 @@ pubbleRadar is a production-ready QR code generator built with Next.js App Route
 - `qrcode` (node-qrcode) for generation
 - Lucide React icons
 
-## Getting Started
+## Prerequisites
 
-Install dependencies:
+- **Node.js 18.18+** (Node 20 LTS recommended)
+- **pnpm 10+** — install with `npm install -g pnpm` or `corepack enable pnpm`
 
-```bash
-pnpm install
-```
-
-Run the dev server:
+Check your versions:
 
 ```bash
-pnpm dev
+node -v
+pnpm -v
 ```
 
-Open `http://localhost:3000` to view the app.
+## Launch the Project
+
+From the project root (`QR APP`):
+
+1. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+2. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+3. **Open the app**
+
+   Visit [http://localhost:3000](http://localhost:3000) in your browser. The page hot-reloads as you edit files.
+
+### Run a production build locally
+
+```bash
+pnpm build   # compile an optimized production build
+pnpm start   # serve the build at http://localhost:3000
+```
+
+## How to Use
+
+1. From the landing page, click **Start generating** (or open **/generate** directly).
+2. **Choose a content type** — Text, URL, Email, Phone, SMS, or Wi-Fi. Each type shows a tailored, validated form.
+3. **Fill in the details.** Inputs are validated live; helpful messages appear if something is missing or malformed.
+4. **Customize the look** — pick a size preset (Small / Medium / Large / Print) or set a custom size and margin, and choose a theme or custom foreground/background colors.
+5. **Watch the live preview** update as you type.
+6. **Export** the result:
+   - **Download PNG** for raster use (web, slides, social).
+   - **Download SVG** for scalable/print use (signage, large format).
+   - **Copy payload** to copy the underlying encoded text.
+   - For URL codes, use **Open link** to test the destination.
+7. Recent generations are saved locally and appear under **Recent history** for quick reuse.
+
+> Tip: Always test-scan with a phone camera before printing to confirm contrast and margin feel right.
 
 ## Scripts
 
-- `pnpm dev` Start development server
-- `pnpm build` Build for production
-- `pnpm start` Start production server
-- `pnpm lint` Run ESLint
-- `pnpm format` Format with Prettier
-- `pnpm format:check` Check formatting
+- `pnpm dev` — Start development server
+- `pnpm build` — Build for production
+- `pnpm start` — Start production server
+- `pnpm lint` — Run ESLint
+- `pnpm format` — Format with Prettier
+- `pnpm format:check` — Check formatting
 
 ## API Route
 
@@ -66,23 +105,23 @@ No environment variables are required for the base app.
 
 ## Project Structure
 
-```
+```text
 app/
-  (marketing)/page.tsx
-  api/qr/route.ts
-  generate/page.tsx
-  layout.tsx
-  globals.css
+  (marketing)/page.tsx   # Landing page
+  api/qr/route.ts        # QR generation API route
+  generate/page.tsx      # Generator app
+  layout.tsx             # Root layout (nav, footer, fonts)
+  globals.css            # Design tokens + global styles
   icon.svg
 components/
-  layout/
-  qr/
-  ui/
+  layout/                # Navbar, footer
+  qr/                    # Form, preview, downloads, history
+  ui/                    # Reusable UI primitives
 lib/
-  constants.ts
-  qr.ts
+  constants.ts           # App name, presets, defaults
+  qr.ts                  # QR payload + filename helpers
   utils.ts
-  validation.ts
+  validation.ts          # Zod schemas
 types/
   qr.ts
 public/
@@ -96,4 +135,3 @@ public/
 - Usage analytics and share links
 - Authentication and team workspaces
 - Bulk CSV import/export
-
