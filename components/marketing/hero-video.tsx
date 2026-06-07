@@ -9,7 +9,7 @@ export function HeroVideo() {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      video.playbackRate = 0.6;
+      video.playbackRate = 0.4;
     }
   }, []);
 
