@@ -182,7 +182,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Supported content types */}
-      <section className="mt-32 space-y-8">
+      <section className="mt-44 space-y-8">
         <div className="flex flex-col gap-3 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             One tool, every format
@@ -214,7 +214,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="mt-32 space-y-8">
+      <section id="features" className="mt-44 space-y-8">
         <div className="max-w-2xl space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             Why teams use it
@@ -247,7 +247,7 @@ export default function MarketingPage() {
       </section>
 
       {/* How it works */}
-      <section className="mt-32 space-y-8">
+      <section className="mt-44 space-y-8">
         <div className="max-w-2xl space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
             How it works
@@ -280,7 +280,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="mt-32 overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,#16271d,#0f1c15)] px-6 py-12 sm:px-10">
+      <section className="mt-44 overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,#16271d,#0f1c15)] px-6 py-12 sm:px-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
             <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
