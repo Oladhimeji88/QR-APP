@@ -18,7 +18,6 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -153,60 +152,12 @@ export default function MarketingPage() {
 
         <div className="relative animate-scale-in [animation-delay:140ms]">
           <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(99,212,113,0.28),transparent_60%)] blur-2xl" />
-          <Card className="relative overflow-hidden border-[color:var(--border)] bg-[linear-gradient(180deg,#ffffff,rgba(240,248,244,0.85))]">
-            <CardHeader>
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <CardTitle>pubbleRadar Studio</CardTitle>
-                  <CardDescription>
-                    Live preview, validated inputs, export-ready downloads.
-                  </CardDescription>
-                </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-tint)] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-strong)]">
-                  <ShieldCheck className="size-3.5" />
-                  Local only
-                </span>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid gap-4 rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] p-5">
-                <div className="flex items-center justify-between rounded-full border border-[color:var(--border)] bg-[color:var(--background)]/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-                  <span className="inline-flex items-center gap-1.5">
-                    <Wifi className="size-3.5" /> Wi-Fi QR
-                  </span>
-                  <span>Ready to share</span>
-                </div>
-                <div className="group relative mx-auto rounded-[30px] bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.12)]">
-                  <img
-                    src="/icons/scan-grid.svg"
-                    alt="Decorative QR grid preview"
-                    className="h-auto w-[240px]"
-                  />
-                  <span className="pointer-events-none absolute inset-x-5 top-5 h-[2px] animate-[pulse_2s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,var(--accent-strong),transparent)]" />
-                </div>
-              </div>
-              <div className="grid gap-3 text-sm text-[color:var(--muted-foreground)]">
-                <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
-                  <span>Output formats</span>
-                  <span className="font-medium text-[color:var(--foreground)]">
-                    PNG + SVG
-                  </span>
-                </div>
-                <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
-                  <span>Validation</span>
-                  <span className="font-medium text-[color:var(--foreground)]">
-                    Zod + RHF
-                  </span>
-                </div>
-                <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3">
-                  <span>Generation</span>
-                  <span className="font-medium text-[color:var(--foreground)]">
-                    Local + server route
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/hero.png"
+            alt="Person relaxing with a phone surrounded by playful 3D shapes"
+            className="relative mx-auto w-full max-w-md rounded-lg object-cover shadow-[0_24px_90px_rgba(15,23,42,0.2)]"
+          />
         </div>
       </section>
 
