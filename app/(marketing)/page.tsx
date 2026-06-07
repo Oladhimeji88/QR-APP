@@ -22,6 +22,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { HeroImage } from "@/components/marketing/hero-image";
 import { Reveal } from "@/components/ui/reveal";
 import { APP_DESCRIPTION } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -153,12 +154,7 @@ export default function MarketingPage() {
 
         <div className="relative animate-scale-in [animation-delay:140ms]">
           <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(99,212,113,0.28),transparent_60%)] blur-2xl" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/hero.png"
-            alt="Person relaxing with a phone surrounded by playful 3D shapes"
-            className="animate-float relative mx-auto w-full max-w-md rounded-lg object-cover"
-          />
+          <HeroImage />
         </div>
         </div>
       </section>

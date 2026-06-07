@@ -136,7 +136,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 .animate-float {
-  animation: pr-float 11s ease-in-out infinite;
+  animation: pr-float 16s ease-in-out infinite;
   will-change: transform;
 }
 
