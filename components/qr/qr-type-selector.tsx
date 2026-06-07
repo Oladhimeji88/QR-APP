@@ -52,14 +52,8 @@ export function QrTypeSelector({ value, onChange, animateIn = false }: QrTypeSel
                 : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)] hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)]",
             )}
           >
-            <span
-              className={cn(
-                "mb-4 inline-flex size-11 items-center justify-center rounded-2xl border",
-                isActive
-                  ? "border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]"
-                  : "border-[color:var(--border)] bg-white/70 text-[color:var(--muted-foreground)]",
-              )}
-            >
+            <span className="mb-4 inline-flex size-11 items-center justify-center rounded-2xl border border-transparent bg-[#105C2B] text-white">
+
               <Icon className="size-5" />
             </span>
             <span className="block text-sm font-semibold text-[color:var(--foreground)]">

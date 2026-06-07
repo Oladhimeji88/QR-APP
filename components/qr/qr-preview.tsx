@@ -229,7 +229,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
               ) : preview.status === "error" ? (
                 <div className="grid min-h-[420px] place-items-center rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-[color:var(--surface)]/80 p-8 text-center">
                   <div className="max-w-sm space-y-4">
-                    <span className="mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]">
+                    <span className="mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-[#105C2B] text-white">
                       <AlertTriangle className="size-7" />
                     </span>
                     <div className="space-y-2">
@@ -245,7 +245,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
               ) : (
                 <div className="grid min-h-[420px] place-items-center rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-[color:var(--surface)]/70 p-8 text-center">
                   <div className="max-w-sm space-y-4">
-                    <span className="mx-auto inline-flex size-16 items-center justify-center rounded-[24px] bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.1))] text-[color:var(--accent-strong)]">
+                    <span className="mx-auto inline-flex size-16 items-center justify-center rounded-[24px] bg-[#105C2B] text-white">
                       <ScanLine className="size-8" />
                     </span>
                     <div className="space-y-2">

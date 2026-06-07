@@ -147,7 +147,7 @@ export default function MarketingPage() {
                 key={point}
                 className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--muted-foreground)]"
               >
-                <span className="grid size-5 place-items-center rounded-full bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)]">
+                <span className="grid size-5 place-items-center rounded-full bg-[#105C2B] text-white">
                   <Check className="size-3.5" />
                 </span>
                 {point}
@@ -196,7 +196,7 @@ export default function MarketingPage() {
           {contentTypes.map((type, index) => (
             <Reveal key={type.label} delay={index * 60} className="h-full">
               <div className="group flex h-full flex-col items-center gap-3 border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]">
-                <span className="grid size-12 place-items-center bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                <span className="grid size-12 place-items-center bg-[#105C2B] text-white transition duration-200 group-hover:scale-105">
                   <type.icon className="size-6" />
                 </span>
                 <div>
@@ -234,7 +234,7 @@ export default function MarketingPage() {
             <Reveal key={feature.title} delay={index * 80} className="h-full">
               <Card className="group h-full transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_90px_rgba(15,23,42,0.12)]">
                 <CardHeader>
-                  <span className="inline-flex size-12 items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                  <span className="inline-flex size-12 items-center justify-center bg-[#105C2B] text-white transition duration-200 group-hover:scale-105">
                     <feature.icon className="size-6" />
                   </span>
                   <CardTitle className="pt-2">{feature.title}</CardTitle>
