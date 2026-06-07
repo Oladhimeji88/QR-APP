@@ -7,7 +7,7 @@ const footerLinks = [
   { href: "/", label: "Home" },
   { href: "/generate", label: "Generator" },
   { href: "/bulk", label: "Bulk & print" },
-  { href: "https://nextjs.org", label: "Built with Next.js" },
+  { href: "https://nextjs.org", label: "Built by Kngbee" },
 ];
 
 export function Footer() {
