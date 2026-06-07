@@ -64,12 +64,12 @@ const features = [
 ];
 
 const contentTypes = [
-  { icon: Type, label: "Text", description: "Notes & messages" },
-  { icon: Link2, label: "URL", description: "Links & pages" },
-  { icon: Mail, label: "Email", description: "Pre-filled mail" },
-  { icon: Phone, label: "Phone", description: "Tap to call" },
-  { icon: MessageSquare, label: "SMS", description: "Draft messages" },
-  { icon: Wifi, label: "Wi-Fi", description: "One-scan join" },
+  { icon: Type, label: "Text", description: "Notes & messages", type: "text" },
+  { icon: Link2, label: "URL", description: "Links & pages", type: "url" },
+  { icon: Mail, label: "Email", description: "Pre-filled mail", type: "email" },
+  { icon: Phone, label: "Phone", description: "Tap to call", type: "phone" },
+  { icon: MessageSquare, label: "SMS", description: "Draft messages", type: "sms" },
+  { icon: Wifi, label: "Wi-Fi", description: "One-scan join", type: "wifi" },
 ];
 
 const steps = [
@@ -195,7 +195,10 @@ export default function MarketingPage() {
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {contentTypes.map((type, index) => (
             <Reveal key={type.label} delay={index * 60} className="h-full">
-              <div className="group flex h-full flex-col items-center gap-3 border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]">
+              <Link
+                href={`/generate?type=${type.type}`}
+                className="group flex h-full flex-col items-center gap-3 border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-6 text-center transition duration-200 hover:-translate-y-1 hover:border-[color:var(--border-strong)] hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]"
+              >
                 <span className="grid size-12 place-items-center bg-[#105C2B] text-white transition duration-200 group-hover:scale-105">
                   <type.icon className="size-6" />
                 </span>
@@ -207,7 +210,7 @@ export default function MarketingPage() {
                     {type.description}
                   </p>
                 </div>
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>

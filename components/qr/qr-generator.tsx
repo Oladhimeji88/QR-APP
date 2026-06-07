@@ -1,6 +1,7 @@
 "use client";
 
 import { startTransition, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { FormatChooser } from "@/components/qr/format-chooser";
 import { QrForm } from "@/components/qr/qr-form";
@@ -12,6 +13,7 @@ import {
   RECENT_HISTORY_STORAGE_KEY,
 } from "@/lib/constants";
 import { buildQrPayload, buildQrSummary } from "@/lib/qr";
+import { QR_TYPES } from "@/types/qr";
 import type {
   QRFormValues,
   QRHistoryItem,
@@ -22,9 +24,19 @@ import type {
 type Step = "format" | "create";
 
 export function QrGenerator() {
-  const [step, setStep] = useState<Step>("format");
-  const [selectedType, setSelectedType] = useState<QRType>(DEFAULT_FORM_VALUES.type);
-  const [previewValues, setPreviewValues] = useState<QRFormValues>(DEFAULT_FORM_VALUES);
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get("type");
+  const initialType = QR_TYPES.includes(typeParam as QRType)
+    ? (typeParam as QRType)
+    : DEFAULT_FORM_VALUES.type;
+  const hasTypeParam = typeParam !== null && QR_TYPES.includes(typeParam as QRType);
+
+  const [step, setStep] = useState<Step>(hasTypeParam ? "create" : "format");
+  const [selectedType, setSelectedType] = useState<QRType>(initialType);
+  const [previewValues, setPreviewValues] = useState<QRFormValues>({
+    ...DEFAULT_FORM_VALUES,
+    type: initialType,
+  });
   const [refreshNonce, setRefreshNonce] = useState(0);
   const [historyItems, setHistoryItems] = useState<QRHistoryItem[]>([]);
   const [toast, setToast] = useState<ToastMessage | null>(null);
