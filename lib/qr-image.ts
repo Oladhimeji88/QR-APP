@@ -15,37 +15,9 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
-/** Scale (width, height) to fit inside a square box while keeping aspect ratio. */
-function containInside(width: number, height: number, box: number) {
-  if (width <= 0 || height <= 0) {
-    return { width: box, height: box };
-  }
-
-  const scale = Math.min(box / width, box / height);
-  return { width: width * scale, height: height * scale };
-}
-
-function roundedRectPath(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  radius: number,
-) {
-  const r = Math.min(radius, width / 2, height / 2);
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + width, y, x + width, y + height, r);
-  ctx.arcTo(x + width, y + height, x, y + height, r);
-  ctx.arcTo(x, y + height, x, y, r);
-  ctx.arcTo(x, y, x + width, y, r);
-  ctx.closePath();
-}
-
 /**
- * Draw the logo (with a white rounded plate behind it for scan reliability)
- * onto the center of a QR PNG and return a new PNG data URL.
+ * Draw the logo (clipped to a circle, on a white circular plate for scan
+ * reliability) onto the center of a QR PNG and return a new PNG data URL.
  */
 export async function embedLogoInPng(
   qrPngDataUrl: string,
@@ -68,23 +40,24 @@ export async function embedLogoInPng(
   ctx.drawImage(qrImage, 0, 0, size, size);
 
   const logoBox = Math.round(size * LOGO_SIZE_RATIO);
-  const padding = Math.round(logoBox * 0.16);
-  const plate = logoBox + padding * 2;
-  const plateX = Math.round((size - plate) / 2);
-  const plateY = Math.round((size - plate) / 2);
+  const padding = Math.round(logoBox * 0.14);
+  const center = size / 2;
+  const logoRadius = logoBox / 2;
+  const plateRadius = logoRadius + padding;
 
+  // White circular plate behind the logo for scan reliability.
+  ctx.beginPath();
+  ctx.arc(center, center, plateRadius, 0, Math.PI * 2);
   ctx.fillStyle = "#ffffff";
-  roundedRectPath(ctx, plateX, plateY, plate, plate, Math.round(plate * 0.2));
   ctx.fill();
 
-  const fitted = containInside(logoImage.width, logoImage.height, logoBox);
-  ctx.drawImage(
-    logoImage,
-    Math.round((size - fitted.width) / 2),
-    Math.round((size - fitted.height) / 2),
-    Math.round(fitted.width),
-    Math.round(fitted.height),
-  );
+  // Clip to a circle and draw the logo filling it.
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(center, center, logoRadius, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.drawImage(logoImage, center - logoRadius, center - logoRadius, logoBox, logoBox);
+  ctx.restore();
 
   return canvas.toDataURL("image/png");
 }
@@ -103,18 +76,19 @@ export function embedLogoInSvg(svgString: string, logoDataUrl: string): string {
   }
 
   const logoBox = span * LOGO_SIZE_RATIO;
-  const padding = logoBox * 0.16;
-  const plate = logoBox + padding * 2;
-  const platePos = (span - plate) / 2;
-  const logoPos = (span - logoBox) / 2;
-  const radius = plate * 0.2;
+  const padding = logoBox * 0.14;
+  const center = span / 2;
+  const logoRadius = logoBox / 2;
+  const plateRadius = logoRadius + padding;
+  const logoPos = center - logoRadius;
+  const clipId = "qr-logo-clip";
 
   const overlay =
-    `<rect x="${platePos}" y="${platePos}" width="${plate}" height="${plate}" ` +
-    `rx="${radius}" ry="${radius}" fill="#ffffff"/>` +
+    `<circle cx="${center}" cy="${center}" r="${plateRadius}" fill="#ffffff"/>` +
+    `<clipPath id="${clipId}"><circle cx="${center}" cy="${center}" r="${logoRadius}"/></clipPath>` +
     `<image x="${logoPos}" y="${logoPos}" width="${logoBox}" height="${logoBox}" ` +
-    `preserveAspectRatio="xMidYMid meet" href="${logoDataUrl}" ` +
-    `xlink:href="${logoDataUrl}"/>`;
+    `preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})" ` +
+    `href="${logoDataUrl}" xlink:href="${logoDataUrl}"/>`;
 
   // Ensure the xlink namespace is declared so xlink:href resolves in strict renderers.
   const withNamespace = svgString.includes("xmlns:xlink")
@@ -127,17 +101,22 @@ export function embedLogoInSvg(svgString: string, logoDataUrl: string): string {
   return withNamespace.replace(/<\/svg>\s*$/, `${overlay}</svg>`);
 }
 
-/**
- * Read an uploaded image file, downscale it so the longest edge is at most
- * LOGO_MAX_DIMENSION, and return a compact PNG data URL (preserves transparency).
- */
-export async function fileToLogoDataUrl(file: File): Promise<string> {
-  const originalDataUrl = await new Promise<string>((resolve, reject) => {
+/** Read an uploaded file into a data URL (used as the crop modal's source). */
+export function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result));
     reader.onerror = () => reject(new Error("Unable to read the selected file."));
     reader.readAsDataURL(file);
   });
+}
+
+/**
+ * Read an uploaded image file, downscale it so the longest edge is at most
+ * LOGO_MAX_DIMENSION, and return a compact PNG data URL (preserves transparency).
+ */
+export async function fileToLogoDataUrl(file: File): Promise<string> {
+  const originalDataUrl = await fileToDataUrl(file);
 
   const image = await loadImage(originalDataUrl);
   const longestEdge = Math.max(image.width, image.height);
