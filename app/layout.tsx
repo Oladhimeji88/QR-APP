@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     "PNG SVG QR download",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/pubbleradar.png",
+    shortcut: "/pubbleradar.png",
+    apple: "/pubbleradar.png",
   },
 };
 
