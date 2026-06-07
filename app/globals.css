@@ -84,3 +84,75 @@ input[type="color"]::-moz-color-swatch {
   border: none;
   border-radius: 16px;
 }
+
+/* ---- Bulk print sheet ---- */
+.crop-cell {
+  position: relative;
+}
+
+.crop-mark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+.crop-mark--tl {
+  top: -6px;
+  left: -6px;
+  border-top: 1px solid #94a3b8;
+  border-left: 1px solid #94a3b8;
+}
+
+.crop-mark--tr {
+  top: -6px;
+  right: -6px;
+  border-top: 1px solid #94a3b8;
+  border-right: 1px solid #94a3b8;
+}
+
+.crop-mark--bl {
+  bottom: -6px;
+  left: -6px;
+  border-bottom: 1px solid #94a3b8;
+  border-left: 1px solid #94a3b8;
+}
+
+.crop-mark--br {
+  bottom: -6px;
+  right: -6px;
+  border-bottom: 1px solid #94a3b8;
+  border-right: 1px solid #94a3b8;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  .bulk-print-area,
+  .bulk-print-area * {
+    visibility: visible !important;
+  }
+
+  .bulk-print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #ffffff;
+  }
+
+  .bulk-print-hide {
+    display: none !important;
+  }
+
+  .crop-cell {
+    break-inside: avoid;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+}

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/generate", label: "Generator" },
+  { href: "/bulk", label: "Bulk & print" },
 ];
 
 export function Navbar() {

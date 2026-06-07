@@ -6,6 +6,7 @@ import { APP_NAME } from "@/lib/constants";
 const footerLinks = [
   { href: "/", label: "Home" },
   { href: "/generate", label: "Generator" },
+  { href: "/bulk", label: "Bulk & print" },
   { href: "https://nextjs.org", label: "Built with Next.js" },
 ];
 
