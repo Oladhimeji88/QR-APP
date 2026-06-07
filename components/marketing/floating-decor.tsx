@@ -19,12 +19,12 @@ interface DecorItem {
 }
 
 const ITEMS: DecorItem[] = [
-  { src: "/hover/decor-1.png", alt: "", size: 120, left: "3%", top: "6%", duration: "21s", delay: "0s" },
-  { src: "/hover/decor-2.png", alt: "", size: 96, left: "86%", top: "20%", duration: "25s", delay: "-4s" },
-  { src: "/hover/decor-3.png", alt: "", size: 110, left: "5%", top: "44%", duration: "19s", delay: "-8s" },
-  { src: "/hover/decor-4.png", alt: "", size: 88, left: "88%", top: "58%", duration: "27s", delay: "-2s" },
-  { src: "/hover/decor-5.png", alt: "", size: 128, left: "7%", top: "76%", duration: "23s", delay: "-11s" },
-  { src: "/hover/decor-6.png", alt: "", size: 104, left: "85%", top: "90%", duration: "20s", delay: "-6s" },
+  { src: "/hover/decor-1.png", alt: "", size: 168, left: "3%", top: "6%", duration: "21s", delay: "0s" },
+  { src: "/hover/decor-2.png", alt: "", size: 136, left: "86%", top: "20%", duration: "25s", delay: "-4s" },
+  { src: "/hover/decor-3.png", alt: "", size: 152, left: "5%", top: "44%", duration: "19s", delay: "-8s" },
+  { src: "/hover/decor-4.png", alt: "", size: 128, left: "88%", top: "58%", duration: "27s", delay: "-2s" },
+  { src: "/hover/decor-5.png", alt: "", size: 180, left: "7%", top: "76%", duration: "23s", delay: "-11s" },
+  { src: "/hover/decor-6.png", alt: "", size: 144, left: "85%", top: "90%", duration: "20s", delay: "-6s" },
 ];
 
 export function FloatingDecor() {
