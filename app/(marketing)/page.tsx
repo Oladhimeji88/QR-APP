@@ -112,7 +112,7 @@ export default function MarketingPage() {
           </div>
 
           <div className="space-y-5">
-            <h1 className="max-w-3xl text-balance text-6xl font-extrabold leading-[1.02] tracking-tight text-[color:var(--foreground)] sm:text-7xl">
+            <h1 className="max-w-4xl text-balance text-7xl font-black leading-[1.0] tracking-tighter text-[color:var(--foreground)] sm:text-8xl">
               Create QR codes{" "}
               <span className="bg-[linear-gradient(120deg,var(--accent-strong),var(--accent-soft))] bg-clip-text text-transparent">
                 instantly
