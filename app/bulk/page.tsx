@@ -51,7 +51,7 @@ export default function BulkPage() {
                 key={item.title}
                 className="rounded-[24px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4"
               >
-                <span className="inline-flex size-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(63,122,99,0.18))] text-[color:var(--accent-strong)]">
+                <span className="inline-flex size-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.18))] text-[color:var(--accent-strong)]">
                   <item.icon className="size-5" />
                 </span>
                 <h2 className="mt-4 text-base font-semibold text-[color:var(--foreground)]">

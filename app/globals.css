@@ -37,8 +37,8 @@
 *::before,
 *::after {
   border-color: var(--border);
-  /* Square corners everywhere — no border radius. */
-  border-radius: 0 !important;
+  /* Uniform 8px radius everywhere. */
+  border-radius: 8px !important;
 }
 
 html {
@@ -60,12 +60,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 input[type="color"]::-webkit-color-swatch {
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
 }
 
 input[type="color"]::-moz-color-swatch {
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
 }
 
 /* ---- Animations ---- */

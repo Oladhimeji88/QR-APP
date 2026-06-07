@@ -48,7 +48,7 @@ export function QrTypeSelector({ value, onChange, animateIn = false }: QrTypeSel
               "group border p-4 text-left transition duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background)]",
               animateIn && "animate-fade-in-up",
               isActive
-                ? "border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] shadow-[0_18px_40px_rgba(47,122,91,0.16)]"
+                ? "border-[color:var(--accent-strong)]/40 bg-[color:var(--surface-tint)] text-[color:var(--accent-strong)] shadow-[0_18px_40px_rgba(99,212,113,0.16)]"
                 : "border-[color:var(--border)] bg-[color:var(--surface)] hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-strong)] hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)]",
             )}
           >

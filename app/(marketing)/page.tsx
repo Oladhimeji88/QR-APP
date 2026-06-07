@@ -152,7 +152,7 @@ export default function MarketingPage() {
         </div>
 
         <div className="relative animate-scale-in [animation-delay:140ms]">
-          <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.28),transparent_60%)] blur-2xl" />
+          <div className="absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(99,212,113,0.28),transparent_60%)] blur-2xl" />
           <Card className="relative overflow-hidden border-[color:var(--border)] bg-[linear-gradient(180deg,#ffffff,rgba(240,248,244,0.85))]">
             <CardHeader>
               <div className="flex items-center justify-between gap-4">
@@ -280,7 +280,7 @@ export default function MarketingPage() {
             <Reveal key={feature.title} delay={index * 80} className="h-full">
               <Card className="group h-full transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_90px_rgba(15,23,42,0.12)]">
                 <CardHeader>
-                  <span className="inline-flex size-12 items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),rgba(63,122,99,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
+                  <span className="inline-flex size-12 items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.18))] text-[color:var(--accent-strong)] transition duration-200 group-hover:scale-105">
                     <feature.icon className="size-6" />
                   </span>
                   <CardTitle className="pt-2">{feature.title}</CardTitle>
@@ -326,7 +326,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="mt-20 overflow-hidden rounded-[36px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(63,122,99,0.12),rgba(63,122,99,0.08))] px-6 py-12 sm:px-10">
+      <section className="mt-20 overflow-hidden rounded-[36px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(99,212,113,0.12),rgba(99,212,113,0.08))] px-6 py-12 sm:px-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
             <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">

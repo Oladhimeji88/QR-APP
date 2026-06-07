@@ -148,8 +148,8 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
       >
         <div className="space-y-6">
           <div className="relative overflow-hidden rounded-[28px] border border-[color:var(--border)] bg-[linear-gradient(180deg,var(--surface),transparent)] p-6">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.12),transparent_52%)]" />
-            <div className="absolute inset-x-8 top-8 h-px bg-[linear-gradient(90deg,transparent,rgba(63,122,99,0.28),transparent)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,212,113,0.12),transparent_52%)]" />
+            <div className="absolute inset-x-8 top-8 h-px bg-[linear-gradient(90deg,transparent,rgba(99,212,113,0.28),transparent)]" />
 
             <div className="relative">
               {previewData ? (
@@ -226,7 +226,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
               ) : (
                 <div className="grid min-h-[420px] place-items-center rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-[color:var(--surface)]/70 p-8 text-center">
                   <div className="max-w-sm space-y-4">
-                    <span className="mx-auto inline-flex size-16 items-center justify-center rounded-[24px] bg-[linear-gradient(135deg,var(--accent-soft),rgba(63,122,99,0.1))] text-[color:var(--accent-strong)]">
+                    <span className="mx-auto inline-flex size-16 items-center justify-center rounded-[24px] bg-[linear-gradient(135deg,var(--accent-soft),rgba(99,212,113,0.1))] text-[color:var(--accent-strong)]">
                       <ScanLine className="size-8" />
                     </span>
                     <div className="space-y-2">

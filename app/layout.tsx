@@ -54,8 +54,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${sans.variable} ${mono.variable} min-h-screen bg-[color:var(--background)] font-sans text-[color:var(--foreground)] antialiased`}>
         <div className="relative flex min-h-screen flex-col">
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(63,122,99,0.16),transparent_38%),radial-gradient(circle_at_85%_10%,rgba(156,198,177,0.14),transparent_26%)]" />
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(47,122,91,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(47,122,91,0.05)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(circle_at_center,black,transparent_92%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(99,212,113,0.16),transparent_38%),radial-gradient(circle_at_85%_10%,rgba(156,198,177,0.14),transparent_26%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(99,212,113,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(99,212,113,0.05)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(circle_at_center,black,transparent_92%)]" />
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

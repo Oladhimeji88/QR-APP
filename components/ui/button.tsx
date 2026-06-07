@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const variantClasses = {
   primary:
-    "bg-[color:var(--accent-strong)] text-white shadow-[0_12px_32px_rgba(17,24,39,0.16)] hover:bg-[color:var(--accent-stronger)]",
+    "bg-[color:var(--accent-strong)] text-[color:var(--foreground)] shadow-[0_12px_32px_rgba(16,58,35,0.18)] hover:bg-[color:var(--accent-stronger)]",
   secondary:
     "bg-[color:var(--surface)] text-[color:var(--foreground)] hover:bg-[color:var(--surface-strong)]",
   outline:
