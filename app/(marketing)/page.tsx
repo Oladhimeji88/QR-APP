@@ -104,7 +104,17 @@ export default function MarketingPage() {
       <FloatingDecor />
       {/* Hero — full width */}
       <section className="relative w-full overflow-hidden border-b border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 pt-2 pb-16 sm:px-10 sm:pt-3 sm:pb-20">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[100vw] w-[100vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-15"
+        >
+          <source src="/bg/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
         <div className="animate-fade-in-up space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
             <span className="relative flex size-2">
