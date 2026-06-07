@@ -432,13 +432,13 @@ export function QrForm({
           <div className="space-y-3">
             <Label>Center logo (optional)</Label>
             <div className="flex flex-col gap-4 rounded-[22px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 sm:flex-row sm:items-center">
-              <div className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white">
+              <div className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-full border border-[color:var(--border)] bg-white">
                 {logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={logo}
                     alt="Selected logo preview"
-                    className="size-full object-contain p-2"
+                    className="size-full object-cover"
                   />
                 ) : (
                   <ImagePlus className="size-7 text-[color:var(--muted-foreground)]" />
@@ -565,6 +565,17 @@ export function QrForm({
         onClear={onClearHistory}
         onSelect={(nextValues) => reset(nextValues)}
       />
+
+      {cropSrc ? (
+        <LogoCropModal
+          src={cropSrc}
+          onCancel={() => setCropSrc(null)}
+          onApply={(dataUrl) => {
+            setValue("logo", dataUrl, { shouldDirty: true, shouldValidate: true });
+            setCropSrc(null);
+          }}
+        />
+      ) : null}
     </form>
   );
 }
