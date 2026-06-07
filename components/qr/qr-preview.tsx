@@ -233,7 +233,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                       <AlertTriangle className="size-7" />
                     </span>
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-[color:var(--foreground)]">
+                      <h3 className="text-lg font-bold text-[color:var(--foreground)]">
                         Preview unavailable
                       </h3>
                       <p className="text-sm leading-6 text-[color:var(--muted-foreground)]">
@@ -249,7 +249,7 @@ export function QrPreview({ values, refreshNonce, onToast }: QrPreviewProps) {
                       <ScanLine className="size-8" />
                     </span>
                     <div className="space-y-2">
-                      <h3 className="text-xl font-semibold text-[color:var(--foreground)]">
+                      <h3 className="text-xl font-bold text-[color:var(--foreground)]">
                         Welcome to pubbleRadar
                       </h3>
                       <p className="text-sm leading-6 text-[color:var(--muted-foreground)]">
