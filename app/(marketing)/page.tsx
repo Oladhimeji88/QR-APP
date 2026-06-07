@@ -326,17 +326,17 @@ export default function MarketingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="mt-20 overflow-hidden rounded-[36px] border border-[color:var(--border)] bg-[linear-gradient(135deg,rgba(99,212,113,0.12),rgba(99,212,113,0.08))] px-6 py-12 sm:px-10">
+      <section className="mt-20 overflow-hidden rounded-[36px] border border-white/10 bg-[linear-gradient(135deg,#16271d,#0f1c15)] px-6 py-12 sm:px-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
             <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
               <Zap className="size-4" />
               Ready to build
             </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-[color:var(--foreground)] sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
               Move from raw text to clean download in seconds
             </h2>
-            <p className="text-lg leading-8 text-[color:var(--muted-foreground)]">
+            <p className="text-lg leading-8 text-white/75">
               Start with the generator, tweak size and colors, and export a code
               you can use in a product, menu, flyer, or onboarding flow.
             </p>
@@ -346,13 +346,13 @@ export default function MarketingPage() {
               href="/generate"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "w-full justify-center sm:w-auto",
+                "w-full justify-center text-white sm:w-auto",
               )}
             >
               Open generator
               <ArrowRight className="size-5" />
             </Link>
-            <span className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[color:var(--muted-foreground)]">
+            <span className="inline-flex items-center justify-center gap-2 text-sm font-medium text-white/75">
               <ScanLine className="size-4 text-[color:var(--accent-strong)]" />
               No account needed
             </span>
