@@ -280,7 +280,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="mt-20 overflow-hidden rounded-[56px] border border-white/10 bg-[linear-gradient(135deg,#16271d,#0f1c15)] px-6 py-12 sm:px-10">
+      <section className="mt-20 overflow-hidden rounded-[80px] border border-white/10 bg-[linear-gradient(135deg,#16271d,#0f1c15)] px-6 py-12 sm:px-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
             <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
