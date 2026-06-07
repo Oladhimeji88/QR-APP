@@ -22,6 +22,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { FloatingDecor } from "@/components/marketing/floating-decor";
 import { HeroImage } from "@/components/marketing/hero-image";
 import { Reveal } from "@/components/ui/reveal";
 import { APP_DESCRIPTION } from "@/lib/constants";
@@ -99,7 +100,8 @@ const trustPoints = [
 
 export default function MarketingPage() {
   return (
-    <div className="pb-24">
+    <div className="relative pb-24">
+      <FloatingDecor />
       {/* Hero — full width */}
       <section className="relative w-full overflow-hidden border-b border-[color:var(--border)] bg-[linear-gradient(135deg,#ffffff,rgba(240,248,244,0.7))] px-6 pt-2 pb-16 sm:px-10 sm:pt-3 sm:pb-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
