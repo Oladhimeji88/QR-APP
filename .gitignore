@@ -18,4 +18,3 @@
 .env.production.local
 
 .vercel
-config.bat
